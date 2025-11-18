@@ -4,7 +4,7 @@
   },
   "cursos_personalizados": {
     "999": {
-      "fch_inicio": "2024-11-01 00:00:00.000",
+      "fch_inicio": "2024-11-01",
       "flg_activo": "NO",
       "dsc_det_programa": "CURSO MODIFICADO"
     }
