@@ -1,0 +1,12 @@
+{
+  "config_general": {
+    "auto_update_minutos": 5
+  },
+  "cursos_personalizados": {
+    "910": {
+      "fch_inicio": "2024-12-04 00:00:00.000",
+      "flg_activo": "NO",
+      "dsc_det_programa": "CURSO MODIFICADO"
+    }
+  }
+}
