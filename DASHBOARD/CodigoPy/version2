@@ -1,0 +1,584 @@
+import tkinter as tk
+from tkinter import ttk, messagebox
+import pandas as pd
+import pyodbc
+import threading
+import requests
+import json
+from datetime import datetime
+
+class DashboardCursos:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("📊 Dashboard de Cursos - Matrículas")
+        self.root.geometry("1200x800")
+        self.root.configure(bg='#f0f0f0')
+        
+        # Configuración de conexión
+        self.server = "191.98.134.80"
+        self.database = "BDUS_CK000040_0001"
+        self.username = "ASEBASTIAN"
+        self.password = "24MY36$z>&Uf"
+        
+        # URLs de JSONs en GitHub (CORREGIDAS A RAW)
+        self.github_json_url = "https://raw.githubusercontent.com/aron1798/prueba1/main/DASHBOARD/actualizador.json"
+        self.github_replace_url = "https://raw.githubusercontent.com/aron1798/prueba1/main/DASHBOARD/REPLACE_CURSO.json"
+        self.github_query_url = "https://raw.githubusercontent.com/aron1798/prueba1/main/DASHBOARD/SQL_Query/BASE_CURSO.query"
+        self.github_matriculas_url = "https://raw.githubusercontent.com/aron1798/prueba1/main/DASHBOARD/SQL_Query/BASE_MATRICULADOS.query"
+        
+        # Configuración desde JSONs
+        self.config_data = self.cargar_configuracion()
+        self.replace_data = self.cargar_reemplazos()
+        self.query_sql = self.cargar_query()
+        self.query_matriculas_sql = self.cargar_query_matriculas()
+        
+        # Columnas a mostrar (PROGRAMA y FRECUENCIA se concatenan)
+        self.columnas = [
+            'programa_frecuencia', 'fch_inicio', 'dias_para_inicio',
+            'cod_estado', 'Inscritos_Totales', 'Inscritos_Retirados', 
+            'Inscritos_Activos', 'Inscritos_Mes'
+        ]
+        
+        # Variables - Mes actual por defecto
+        self.mes_seleccionado = tk.StringVar(value=str(datetime.now().month))
+        self.ano_seleccionado = tk.StringVar(value=str(datetime.now().year))
+        self.datos = []
+        self.datos_matriculas = {}
+        
+        # Auto-actualización
+        self.auto_refresh_id = None
+        
+        self.setup_styles()
+        self.create_widgets()
+        
+        # Cargar datos automáticamente al iniciar
+        self.root.after(1000, self.cargar_datos_auto)
+        # Iniciar auto-actualización cada 5 minutos
+        self.iniciar_auto_actualizacion()
+
+    def cargar_configuracion(self):
+        """Carga la configuración desde GitHub"""
+        try:
+            print(f"🌐 Cargando configuración desde: {self.github_json_url}")
+            response = requests.get(self.github_json_url)
+            response.raise_for_status()
+            datos = response.json()
+            print("✅ Configuración cargada correctamente")
+            return datos
+        except Exception as e:
+            print(f"❌ Error cargando configuración: {e}")
+            return {
+                "config_general": {"auto_update_minutos": 5},
+                "cursos_personalizados": {}
+            }
+
+    def cargar_reemplazos(self):
+        """Carga los reemplazos de programas desde GitHub"""
+        try:
+            print(f"🌐 Cargando reemplazos desde: {self.github_replace_url}")
+            response = requests.get(self.github_replace_url)
+            response.raise_for_status()
+            datos = response.json()
+            print("✅ Reemplazos cargados correctamente")
+            print(f"📊 Número de reemplazos: {len(datos.get('reemplazos_programas', {}))}")
+            return datos
+        except Exception as e:
+            print(f"❌ Error cargando reemplazos: {e}")
+            return {
+                "config_general": {"auto_update_minutos": 5},
+                "reemplazos_programas": {},
+                "cursos_personalizados": {}
+            }
+
+    def cargar_query(self):
+        """Carga el query SQL desde GitHub"""
+        try:
+            print(f"🌐 Cargando query desde: {self.github_query_url}")
+            response = requests.get(self.github_query_url)
+            response.raise_for_status()
+            query = response.text
+            print("✅ Query cargado correctamente")
+            print(f"📝 Longitud del query: {len(query)} caracteres")
+            return query
+        except Exception as e:
+            print(f"❌ Error cargando query: {e}")
+            return ""
+
+    def cargar_query_matriculas(self):
+        """Carga el query de matrículas desde GitHub"""
+        try:
+            print(f"🌐 Cargando query de matrículas desde: {self.github_matriculas_url}")
+            response = requests.get(self.github_matriculas_url)
+            response.raise_for_status()
+            query = response.text
+            print("✅ Query de matrículas cargado correctamente")
+            return query
+        except Exception as e:
+            print(f"❌ Error cargando query de matrículas: {e}")
+            return ""
+
+    def cargar_datos_matriculas(self, ano, mes):
+        """Carga y cuenta las matrículas por num_indice filtradas por mes"""
+        try:
+            if not self.query_matriculas_sql:
+                print("❌ No hay query de matrículas disponible")
+                return {}
+                
+            conn = self.get_connection()
+            cursor = conn.cursor()
+            
+            print(f"📊 Cargando matrículas para {mes}/{ano}")
+            cursor.execute(self.query_matriculas_sql, ano, mes)
+            rows = cursor.fetchall()
+            
+            # Contar matrículas por num_indice
+            datos_matriculas = {}
+            for row in rows:
+                num_indice = row[0]
+                if num_indice in datos_matriculas:
+                    datos_matriculas[num_indice] += 1
+                else:
+                    datos_matriculas[num_indice] = 1
+            
+            conn.close()
+            print(f"📈 Matrículas cargadas: {len(datos_matriculas)} cursos con {sum(datos_matriculas.values())} matrículas en total")
+            return datos_matriculas
+            
+        except Exception as e:
+            print(f"❌ Error cargando datos de matrículas: {e}")
+            return {}
+
+    def formatear_fecha(self, fecha_str):
+        """Convierte fecha de YYYY-MM-DD HH:MM:SS.sss a DD-MM-YYYY"""
+        try:
+            if not fecha_str:
+                return ""
+            
+            if isinstance(fecha_str, str) and len(fecha_str) == 10 and fecha_str[2] == '-' and fecha_str[5] == '-':
+                return fecha_str
+            
+            if '.' in str(fecha_str):
+                fecha_obj = datetime.strptime(str(fecha_str), '%Y-%m-%d %H:%M:%S.%f')
+            else:
+                fecha_obj = datetime.strptime(str(fecha_str), '%Y-%m-%d %H:%M:%S')
+            
+            return fecha_obj.strftime('%d-%m-%Y')
+        except (ValueError, TypeError) as e:
+            print(f"Error formateando fecha '{fecha_str}': {e}")
+            return str(fecha_str)
+
+    def calcular_dias_para_inicio(self, fecha_str, cod_estado):
+        """Calcula los días faltantes para el inicio del curso"""
+        try:
+            # Si el estado es SUS, retornar "SUSPENDIDO"
+            if cod_estado == 'SUS':
+                return "SUSPENDIDO"
+            
+            if not fecha_str:
+                return ""
+            
+            # Convertir fecha string a objeto datetime
+            if isinstance(fecha_str, str) and len(fecha_str) == 10 and fecha_str[2] == '-' and fecha_str[5] == '-':
+                # Formato DD-MM-YYYY
+                fecha_curso = datetime.strptime(fecha_str, '%d-%m-%Y')
+            else:
+                # Otros formatos, intentar convertir
+                fecha_curso = datetime.strptime(str(fecha_str), '%Y-%m-%d %H:%M:%S')
+            
+            # Fecha actual (sin hora, solo fecha)
+            hoy = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
+            fecha_curso = fecha_curso.replace(hour=0, minute=0, second=0, microsecond=0)
+            
+            # Calcular diferencia en días
+            diferencia = (fecha_curso - hoy).days
+            
+            if diferencia < 0:
+                return "INICIADO"
+            elif diferencia == 0:
+                return "0"
+            else:
+                return str(diferencia)
+                
+        except (ValueError, TypeError) as e:
+            print(f"Error calculando días para inicio '{fecha_str}': {e}")
+            return ""
+
+    def aplicar_reemplazos_programas(self, datos):
+        """Aplica los reemplazos de nombres de programas"""
+        print("🔍 Aplicando reemplazos de programas...")
+        
+        if 'reemplazos_programas' in self.replace_data:
+            reemplazos = self.replace_data['reemplazos_programas']
+            print(f"📋 Reemplazos disponibles: {len(reemplazos)}")
+            
+            reemplazos_aplicados = 0
+            for curso in datos:
+                programa_original = curso.get('dsc_programa', '')
+                if programa_original in reemplazos:
+                    nuevo_nombre = reemplazos[programa_original]
+                    print(f"🔄 Reemplazando: '{programa_original}' → '{nuevo_nombre}'")
+                    curso['dsc_programa'] = nuevo_nombre
+                    reemplazos_aplicados += 1
+            
+            print(f"✅ Total reemplazos aplicados: {reemplazos_aplicados}")
+        else:
+            print("❌ No se encontró 'reemplazos_programas' en el JSON")
+        
+        return datos
+
+    def concatenar_programa_frecuencia(self, datos):
+        """Concatena PROGRAMA y FRECUENCIA en una sola columna"""
+        print("🔗 Concatenando PROGRAMA y FRECUENCIA...")
+        
+        for curso in datos:
+            programa = curso.get('dsc_programa', '')
+            frecuencia = curso.get('cod_frecuencia', '')
+            
+            # Crear la nueva columna concatenada
+            if programa and frecuencia:
+                curso['programa_frecuencia'] = f"{programa} - {frecuencia}"
+            elif programa:
+                curso['programa_frecuencia'] = programa
+            elif frecuencia:
+                curso['programa_frecuencia'] = frecuencia
+            else:
+                curso['programa_frecuencia'] = ""
+        
+        return datos
+
+    def calcular_dias_para_inicio_cursos(self, datos):
+        """Calcula los días para inicio de todos los cursos"""
+        print("📅 Calculando días para inicio...")
+        
+        for curso in datos:
+            fecha_inicio = curso.get('fch_inicio', '')
+            cod_estado = curso.get('cod_estado', '')
+            curso['dias_para_inicio'] = self.calcular_dias_para_inicio(fecha_inicio, cod_estado)
+        
+        return datos
+
+    def agregar_inscritos_mes(self, datos):
+        """Agrega la columna INSCRITOS_MES basada en los datos de matrículas del mes"""
+        print("📈 Agregando INSCRITOS_MES...")
+        
+        inscritos_mes_total = 0
+        for curso in datos:
+            num_indice = curso.get('num_indice')
+            if num_indice in self.datos_matriculas:
+                curso['Inscritos_Mes'] = self.datos_matriculas[num_indice]
+                inscritos_mes_total += self.datos_matriculas[num_indice]
+            else:
+                curso['Inscritos_Mes'] = 0
+        
+        print(f"✅ Total inscritos del mes: {inscritos_mes_total}")
+        return datos
+
+    def aplicar_personalizaciones(self, datos_originales):
+        """Aplica las personalizaciones del JSON a los datos y filtra por flg_activo"""
+        print("🎯 Aplicando personalizaciones...")
+        
+        if 'cursos_personalizados' not in self.config_data:
+            datos_filtrados = [curso for curso in datos_originales if curso.get('flg_activo', '') != 'NO']
+        else:
+            cursos_personalizados = self.config_data['cursos_personalizados']
+            datos_filtrados = []
+            
+            for curso in datos_originales:
+                num_indice = str(curso.get('num_indice', ''))
+                
+                if num_indice in cursos_personalizados:
+                    personalizacion = cursos_personalizados[num_indice]
+                    
+                    if 'fch_inicio' in personalizacion:
+                        curso['fch_inicio'] = personalizacion['fch_inicio']
+                    if 'flg_activo' in personalizacion:
+                        curso['flg_activo'] = personalizacion['flg_activo']
+                    if 'dsc_programa' in personalizacion:
+                        curso['dsc_programa'] = personalizacion['dsc_programa']
+                    if 'dsc_det_programa' in personalizacion:
+                        curso['dsc_det_programa'] = personalizacion['dsc_det_programa']
+                
+                if curso.get('flg_activo', '') != 'NO':
+                    datos_filtrados.append(curso)
+        
+        print(f"📊 Cursos después de filtrado: {len(datos_filtrados)}")
+        
+        # Aplicar reemplazos de programas
+        datos_filtrados = self.aplicar_reemplazos_programas(datos_filtrados)
+        
+        # Concatenar PROGRAMA y FRECUENCIA
+        datos_filtrados = self.concatenar_programa_frecuencia(datos_filtrados)
+        
+        # Formatear fechas
+        for curso in datos_filtrados:
+            if 'fch_inicio' in curso:
+                curso['fch_inicio'] = self.formatear_fecha(curso['fch_inicio'])
+        
+        # Calcular días para inicio
+        datos_filtrados = self.calcular_dias_para_inicio_cursos(datos_filtrados)
+        
+        # Agregar INSCRITOS_MES
+        datos_filtrados = self.agregar_inscritos_mes(datos_filtrados)
+        
+        return datos_filtrados
+
+    def setup_styles(self):
+        style = ttk.Style()
+        style.configure('TFrame', background='#f0f0f0')
+        style.configure('TLabel', background='#f0f0f0', font=('Arial', 10))
+        style.configure('TButton', font=('Arial', 10))
+        style.configure('Header.TLabel', font=('Arial', 12, 'bold'))
+        style.configure('Stats.TLabel', font=('Arial', 11, 'bold'), foreground='#0066cc')
+
+    def create_widgets(self):
+        # Frame principal
+        main_frame = ttk.Frame(self.root, padding="20")
+        main_frame.pack(fill=tk.BOTH, expand=True)
+        
+        # Título
+        title_label = ttk.Label(main_frame, text="📊 Dashboard de Cursos - Matrículas", 
+                               style='Header.TLabel')
+        title_label.pack(pady=(0, 20))
+        
+        # Frame de controles
+        controls_frame = ttk.Frame(main_frame)
+        controls_frame.pack(fill=tk.X, pady=(0, 20))
+        
+        # Filtros
+        filters_frame = ttk.Frame(controls_frame)
+        filters_frame.pack(fill=tk.X)
+        
+        # Año
+        ttk.Label(filters_frame, text="Año:").grid(row=0, column=0, padx=(0, 5), sticky='w')
+        anos = [str(year) for year in range(2024, 2026)]
+        self.ano_cb = ttk.Combobox(filters_frame, textvariable=self.ano_seleccionado, 
+                                  values=anos, state="readonly", width=8)
+        self.ano_cb.grid(row=0, column=1, padx=(0, 20))
+        self.ano_cb.bind('<<ComboboxSelected>>', self.on_filtro_change)
+        
+        # Mes
+        ttk.Label(filters_frame, text="Mes:").grid(row=0, column=2, padx=(0, 5), sticky='w')
+        meses = [
+            ('Enero', '1'), ('Febrero', '2'), ('Marzo', '3'), ('Abril', '4'),
+            ('Mayo', '5'), ('Junio', '6'), ('Julio', '7'), ('Agosto', '8'),
+            ('Septiembre', '9'), ('Octubre', '10'), ('Noviembre', '11'), ('Diciembre', '12')
+        ]
+        self.mes_cb = ttk.Combobox(filters_frame, textvariable=self.mes_seleccionado,
+                                  values=[mes[1] for mes in meses], state="readonly", width=12)
+        self.mes_cb.grid(row=0, column=3, padx=(0, 20))
+        self.mes_cb.bind('<<ComboboxSelected>>', self.on_filtro_change)
+
+        # Botón para actualizar configuración
+        ttk.Button(filters_frame, text="🔄 Actualizar Config", 
+                  command=self.actualizar_configuracion).grid(row=0, column=4, padx=(20, 0))
+        
+        # Estadísticas
+        self.stats_frame = ttk.Frame(controls_frame)
+        self.stats_frame.pack(fill=tk.X, pady=(10, 0))
+        
+        self.stats_var = tk.StringVar(value="Cargando datos...")
+        stats_label = ttk.Label(self.stats_frame, textvariable=self.stats_var, 
+                               style='Stats.TLabel')
+        stats_label.pack(anchor='w')
+        
+        # Treeview para resultados
+        tree_frame = ttk.Frame(main_frame)
+        tree_frame.pack(fill=tk.BOTH, expand=True)
+        
+        self.tree = ttk.Treeview(tree_frame, columns=self.columnas, show='headings', height=20)
+        
+        # Configurar columnas
+        config_columnas = {
+            'programa_frecuencia': {'text': 'PROGRAMA - FRECUENCIA', 'width': 300},
+            'fch_inicio': {'text': 'FECHA INICIO', 'width': 100},
+            'dias_para_inicio': {'text': 'DIAS PARA INICIO', 'width': 120},
+            'cod_estado': {'text': 'ESTADO', 'width': 100},
+            'Inscritos_Totales': {'text': 'TOTAL INSCRITOS', 'width': 120},
+            'Inscritos_Retirados': {'text': 'RETIRADOS', 'width': 100},
+            'Inscritos_Activos': {'text': 'ACTIVOS', 'width': 100},
+            'Inscritos_Mes': {'text': 'INSCRITOS DEL MES', 'width': 120}
+        }
+        
+        for col in self.columnas:
+            if col in config_columnas:
+                config = config_columnas[col]
+                self.tree.heading(col, text=config['text'])
+                self.tree.column(col, width=config['width'])
+        
+        # Scrollbars
+        v_scroll = ttk.Scrollbar(tree_frame, orient=tk.VERTICAL, command=self.tree.yview)
+        h_scroll = ttk.Scrollbar(tree_frame, orient=tk.HORIZONTAL, command=self.tree.xview)
+        self.tree.configure(yscrollcommand=v_scroll.set, xscrollcommand=h_scroll.set)
+        
+        self.tree.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        v_scroll.pack(side=tk.RIGHT, fill=tk.Y)
+        h_scroll.pack(side=tk.BOTTOM, fill=tk.X)
+        
+        # Botones adicionales
+        button_frame = ttk.Frame(main_frame)
+        button_frame.pack(fill=tk.X, pady=(10, 0))
+        
+        ttk.Button(button_frame, text="📥 Exportar a Excel", 
+                  command=self.exportar_excel).pack(side=tk.LEFT, padx=(0, 10))
+        
+        # Estado
+        self.status_var = tk.StringVar(value="Iniciando...")
+        status_label = ttk.Label(main_frame, textvariable=self.status_var, 
+                                foreground='#0066cc')
+        status_label.pack(anchor='w', pady=(10, 0))
+
+    def actualizar_configuracion(self):
+        """Actualiza la configuración desde GitHub"""
+        print("🔄 Actualizando configuración...")
+        self.config_data = self.cargar_configuracion()
+        self.replace_data = self.cargar_reemplazos()
+        self.query_sql = self.cargar_query()
+        self.query_matriculas_sql = self.cargar_query_matriculas()
+        self.status_var.set("✅ Configuración actualizada")
+        # Recargar datos para aplicar nuevas configuraciones
+        self.cargar_datos_auto()
+
+    def on_filtro_change(self, event=None):
+        """Se ejecuta automáticamente cuando cambia el mes o año"""
+        self.cargar_datos_auto()
+
+    def cargar_datos_auto(self):
+        """Carga datos automáticamente sin necesidad de botón"""
+        mes = self.mes_seleccionado.get()
+        ano = self.ano_seleccionado.get()
+        
+        if not mes or not ano:
+            return
+        
+        self.status_var.set("Cargando datos...")
+        thread = threading.Thread(target=self.ejecutar_consulta, args=(ano, mes))
+        thread.daemon = True
+        thread.start()
+
+    def get_connection(self):
+        """Establece conexión con SQL Server"""
+        connection_string = (
+            f"DRIVER={{SQL Server}};"
+            f"SERVER={self.server};"
+            f"DATABASE={self.database};"
+            f"UID={self.username};"
+            f"PWD={self.password}"
+        )
+        return pyodbc.connect(connection_string)
+
+    def ejecutar_consulta(self, ano, mes):
+        """Ejecuta la consulta en hilo separado"""
+        try:
+            if not self.query_sql:
+                self.root.after(0, lambda: self.mostrar_error("No se pudo cargar el query desde GitHub"))
+                return
+                
+            # Primero cargar datos de matrículas del mes seleccionado
+            self.datos_matriculas = self.cargar_datos_matriculas(ano, mes)
+                
+            conn = self.get_connection()
+            cursor = conn.cursor()
+            
+            cursor.execute(self.query_sql, ano, mes)
+            rows = cursor.fetchall()
+            
+            # Convertir a lista de diccionarios
+            datos_originales = []
+            columnas_completas = ['num_indice', 'dsc_det_programa', 'flg_activo', 'fch_inicio', 
+                                 'cod_frecuencia', 'cod_estado', 'dsc_programa', 'Inscritos_Totales', 
+                                 'Inscritos_Retirados', 'Inscritos_Activos']
+            
+            for row in rows:
+                registro = {}
+                for i, col in enumerate(columnas_completas):
+                    registro[col] = row[i]
+                datos_originales.append(registro)
+            
+            conn.close()
+            
+            print(f"📊 Datos obtenidos de BD: {len(datos_originales)} cursos")
+            
+            # Aplicar personalizaciones y reemplazos
+            self.datos = self.aplicar_personalizaciones(datos_originales)
+            
+            # Actualizar UI en hilo principal
+            self.root.after(0, self.mostrar_resultados)
+            
+        except Exception as e:
+            self.root.after(0, lambda: self.mostrar_error(f"Error: {str(e)}"))
+
+    def mostrar_resultados(self):
+        """Muestra los resultados en la tabla"""
+        # Limpiar tabla
+        for item in self.tree.get_children():
+            self.tree.delete(item)
+        
+        if not self.datos:
+            self.status_var.set("No hay datos para el mes seleccionado")
+            self.stats_var.set("0 cursos encontrados")
+            return
+        
+        # Insertar datos
+        for registro in self.datos:
+            valores = [registro.get(col, '') for col in self.columnas]
+            self.tree.insert('', tk.END, values=valores)
+        
+        # Calcular estadísticas
+        total_cursos = len(self.datos)
+        total_inscritos = sum(registro.get('Inscritos_Totales', 0) for registro in self.datos)
+        total_activos = sum(registro.get('Inscritos_Activos', 0) for registro in self.datos)
+        total_inscritos_mes = sum(registro.get('Inscritos_Mes', 0) for registro in self.datos)
+        
+        # Obtener nombre del mes
+        meses_nombres = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+                        'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+        mes_nombre = meses_nombres[int(self.mes_seleccionado.get()) - 1]
+        
+        self.stats_var.set(
+            f"📊 {total_cursos} cursos en {mes_nombre} | 🎯 {total_inscritos} inscritos totales | "
+            f"✅ {total_activos} activos | 📈 {total_inscritos_mes} inscritos del mes"
+        )
+        self.status_var.set(f"✅ Datos actualizados - {len(self.datos)} registros")
+        
+        print(f"🎯 Dashboard actualizado: {total_cursos} cursos mostrados")
+
+    def mostrar_error(self, mensaje):
+        messagebox.showerror("Error", mensaje)
+        self.status_var.set("Error al cargar datos")
+
+    def iniciar_auto_actualizacion(self):
+        """Inicia la actualización automática cada 5 minutos"""
+        intervalo = self.config_data.get('config_general', {}).get('auto_update_minutos', 5) * 60000
+        self.auto_refresh_id = self.root.after(intervalo, self.auto_actualizar)
+
+    def auto_actualizar(self):
+        """Actualización automática cada 5 minutos"""
+        if self.mes_seleccionado.get() and self.ano_seleccionado.get():
+            self.status_var.set("🔄 Actualización automática...")
+            self.ejecutar_consulta(self.ano_seleccionado.get(), self.mes_seleccionado.get())
+        
+        # Programar próxima actualización
+        self.iniciar_auto_actualizacion()
+
+    def exportar_excel(self):
+        """Exporta los datos a Excel"""
+        if not self.datos:
+            messagebox.showwarning("Advertencia", "No hay datos para exportar")
+            return
+        
+        try:
+            df = pd.DataFrame(self.datos)
+            df_exportar = df[self.columnas]
+            archivo = f"cursos_{self.ano_seleccionado.get()}_{self.mes_seleccionado.get()}.xlsx"
+            df_exportar.to_excel(archivo, index=False)
+            messagebox.showinfo("Éxito", f"Datos exportados a {archivo}")
+        except Exception as e:
+            messagebox.showerror("Error", f"No se pudo exportar: {str(e)}")
+
+def main():
+    root = tk.Tk()
+    app = DashboardCursos(root)
+    root.mainloop()
+
+if __name__ == "__main__":
+    main()
