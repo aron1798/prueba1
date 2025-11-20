@@ -1,0 +1,11 @@
+SELECT 
+    sgede_RP_programa.num_indice,
+    COUNT(sgeca_matricula.num_matricula) AS total_matriculas
+FROM sgeca_matricula
+INNER JOIN sgede_RP_programa ON sgeca_matricula.cod_periodo = sgede_RP_programa.cod_detalle
+    AND sgeca_matricula.cod_programa = sgede_RP_programa.cod_programa
+    AND sgeca_matricula.num_indice = sgede_RP_programa.num_indice
+WHERE 
+    sgeca_matricula.cod_estado NOT IN ('ANU', 'SUS')
+GROUP BY 
+    sgede_RP_programa.num_indice
