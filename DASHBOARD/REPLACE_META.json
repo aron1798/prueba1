@@ -1,0 +1,94 @@
+{
+  "config_general": {
+    "auto_update_minutos": 5
+  },
+  "clasificacion_programas": {
+    "GESTION": {
+      "patrones": [
+        "GESTIÓN DE VENTA DE EQUIPOS",
+        "GESTION DE EMPRESAS"
+      ],
+      "valor": 15
+    },
+    "CERTIFICACION": {
+      "patrones": [
+        "CERTIFI",
+        "CERTIFICACIÓN"
+      ],
+      "valor": 15
+    },
+    "MASTERCLASS": {
+      "patrones": [
+        "MASTERCLASS"
+      ],
+      "valor": 15
+    },
+    "CONTINUIDAD": {
+      "patrones": [
+        "CONTINUIDAD"
+      ],
+      "valor": 15
+    },
+    "SEDES": {
+      "patrones": [
+        "TRUJILLO",
+        "AREQUIPA", 
+        "PIURA"
+      ],
+      "valor": 15
+    },
+    "CARRERA": {
+      "patrones": [
+        "CARRERA"
+      ],
+      "valor": 20
+    },
+    "SEMINARIOS": {
+      "patrones": [
+        "CO2",
+        "CERTIF",
+        "SEM:",
+        "DISEÑO",
+        "DIPLOMADO",
+        "DUCTOS",
+        "SEM.",
+        "SEMINARIO",
+        "SEMINARIOS"
+      ],
+      "valor": 15
+    },
+    "TEAC": {
+      "patrones": [
+        "ACONDICIONADO",
+        "TEAC",
+        "ESPECIALISTA EN AA",
+        "VIRTUAL TECNICO ESPECIALISTA EN AIRE"
+      ],
+      "valor": 22
+    },
+    "TERC": {
+      "patrones": [
+        "REFRIGERACIÓN",
+        "REFRIGERACION", 
+        "COMERCIAL",
+        "TERC"
+      ],
+      "valor": 22
+    },
+    "OTROS": {
+      "patrones": [
+        "VIRTUAL TECNICO ESPECIALISTA",
+        "CURSO A MEDIDA",
+        "INSTALACION EN REFRIGERACION",
+        "MANTENIMIENTO EN REFRIGERACIÓN",
+        "TALLER - TECNICO ESPECIALISTA",
+        "MANTENIMIENTO EN AIRE"
+      ],
+      "valor": 0
+    }
+  },
+  "clasificacion_default": {
+    "categoria": "SEMINARIOS",
+    "valor": 15
+  }
+}
