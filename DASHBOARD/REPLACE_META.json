@@ -29,10 +29,20 @@
       ],
       "valor": 15
     },
-    "SEDES": {
+    "TRUJILLO": {
       "patrones": [
-        "TRUJILLO",
-        "AREQUIPA", 
+        "TRUJILLO"
+      ],
+      "valor": 15
+    },
+    "AREQUIPA": {
+      "patrones": [
+        "AREQUIPA"
+      ],
+      "valor": 15
+    },
+    "PIURA": {
+      "patrones": [
         "PIURA"
       ],
       "valor": 15
