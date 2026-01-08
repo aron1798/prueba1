@@ -3,107 +3,40 @@
     "auto_update_minutos": 2
   },
   "cursos_personalizados": {
-    "1030": {
-      "flg_activo": "NO"
-    },
-    "1052": {
-      "flg_activo": "NO"
-    },
-    "1049": {
-      "flg_activo": "NO"
-    },
-    "1056": {
-      "flg_activo": "NO"
-    },
-    "1094": {
-      "flg_activo": "NO"
-    },
-    "1051": {
-      "flg_activo": "NO"
-    },
-    "1093": {
-      "flg_activo": "NO"
-    },
-    "1015": {
-      "flg_activo": "NO"
-    },
-    "1010": {
-      "flg_activo": "NO"
-    },
-    "998": {
-      "flg_activo": "NO"
-    },
-    "1097": {
-      "flg_activo": "NO"
-    },
-    "1095": {
-      "flg_activo": "NO"
-    },
-    "1096": {
-      "flg_activo": "NO"
-    },
-    "1079": {
-      "flg_activo": "NO"
-    },
-    "1077": {
-      "flg_activo": "NO"
-    },
-    "1075": {
-      "flg_activo": "NO"
-    },
-    "1110": {
-      "flg_activo": "NO"
-    },
-    "1078": {
-      "flg_activo": "NO"
-    },
-    "1076": {
-      "flg_activo": "NO"
-    },
-    "1074": {
-      "flg_activo": "NO"
-    }
-  },
-    "1071": {
-      "flg_activo": "NO"
-    },
-    "1006": {
-      "flg_activo": "NO"
-    },
-    "1040": {
-      "flg_activo": "NO"
-    },
-    "1000": {
-      "flg_activo": "NO"
-    },
-    "974": {
-      "flg_activo": "NO"
-    },
-    "984": {
-      "flg_activo": "NO"
-    },
-    "1059": {
-      "flg_activo": "NO"
-    },
-    "1043": {
-      "flg_activo": "NO"
-    },
-    "959": {
-      "flg_activo": "NO"
-    },
-    "966": {
-      "flg_activo": "NO"
-    },
-    "940": {
-      "flg_activo": "NO"
-    },
-    "941": {
-      "flg_activo": "NO"
-    },
-    "936": {
-      "flg_activo": "NO"
-    },
-    "918": {
-      "flg_activo": "NO"
-    }
+    "1030": { "flg_activo": "NO" },
+    "1052": { "flg_activo": "NO" },
+    "1049": { "flg_activo": "NO" },
+    "1056": { "flg_activo": "NO" },
+    "1094": { "flg_activo": "NO" },
+    "1051": { "flg_activo": "NO" },
+    "1093": { "flg_activo": "NO" },
+    "1015": { "flg_activo": "NO" },
+    "1010": { "flg_activo": "NO" },
+    "998": { "flg_activo": "NO" },
+    "1097": { "flg_activo": "NO" },
+    "1095": { "flg_activo": "NO" },
+    "1096": { "flg_activo": "NO" },
+    "1079": { "flg_activo": "NO" },
+    "1077": { "flg_activo": "NO" },
+    "1075": { "flg_activo": "NO" },
+    "1110": { "flg_activo": "NO" },
+    "1078": { "flg_activo": "NO" },
+    "1076": { "flg_activo": "NO" },
+    "1074": { "flg_activo": "NO" },
+    "1071": { "flg_activo": "NO" },
+    "1006": { "flg_activo": "NO" },
+    "1040": { "flg_activo": "NO" },
+    "1000": { "flg_activo": "NO" },
+    "974": { "flg_activo": "NO" },
+    "984": { "flg_activo": "NO" },
+    "1059": { "flg_activo": "NO" },
+    "1043": { "flg_activo": "NO" },
+    "959": { "flg_activo": "NO" },
+    "966": { "flg_activo": "NO" },
+    "940": { "flg_activo": "NO" },
+    "941": { "flg_activo": "NO" },
+    "936": { "flg_activo": "NO" },
+    "918": { "flg_activo": "NO" }
+  }
 }
+
