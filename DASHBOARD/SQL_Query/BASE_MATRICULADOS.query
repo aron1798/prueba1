@@ -23,7 +23,14 @@ SELECT
         WHERE sgede_cronograma_matricula.cod_localidad = sgeca_matricula.cod_localidad
             AND sgede_cronograma_matricula.num_matricula = sgeca_matricula.num_matricula
             AND sgede_cronograma_matricula.num_refinanciamiento = 1
-    ), 0) AS INV_NETA,
+    ), 0) * (CASE 
+                WHEN sgeca_matricula.cod_moneda = 'DOL' THEN 
+                    ISNULL((SELECT TOP 1 comp.imp_tc FROM vtaca_comprobante comp 
+                            INNER JOIN sgevi_cuotas_x_comprobante cxc ON comp.cod_localidad = cxc.cod_localidad AND comp.num_correlativo = cxc.num_correlativo
+                            WHERE cxc.num_matricula = sgeca_matricula.num_matricula AND cxc.cod_localidad_c = sgeca_matricula.cod_localidad
+                            AND comp.cod_estado NOT IN ('ANU', 'ELI')), 1)
+                ELSE 1 
+             END) AS INV_NETA,
     sgeca_matricula.imp_cuoi,
     (
         SELECT vtama_cuota.dsc_cuota
