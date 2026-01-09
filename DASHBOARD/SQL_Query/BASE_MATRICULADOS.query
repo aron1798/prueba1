@@ -220,7 +220,19 @@ SELECT
         WHERE a.cod_alumno = sgeca_matricula.cod_alumno
             AND a.cod_estado = 'ANU'
         ORDER BY a.fch_matricula DESC
-    ) AS periodo_anulacion_anterior
+    ) AS periodo_anulacion_anterior,
+
+    -- NUEVA COLUMNA imp_tc AL FINAL (Garantiza 1 valor por matrícula)
+    ISNULL((
+        SELECT TOP 1 comp.imp_tc
+        FROM vtaca_comprobante comp
+        INNER JOIN sgevi_cuotas_x_comprobante cxc ON comp.cod_localidad = cxc.cod_localidad 
+                                                AND comp.num_correlativo = cxc.num_correlativo
+        WHERE cxc.num_matricula = sgeca_matricula.num_matricula
+          AND cxc.cod_localidad_c = sgeca_matricula.cod_localidad
+          AND comp.cod_estado NOT IN ('ANU', 'ELI')
+        ORDER BY comp.fch_emision DESC
+    ), 0) AS imp_tc
 
 FROM sgeca_matricula
 INNER JOIN sgeca_programa ON sgeca_matricula.cod_programa = sgeca_programa.cod_programa
