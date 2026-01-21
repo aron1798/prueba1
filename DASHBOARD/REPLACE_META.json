@@ -3,19 +3,12 @@
     "auto_update_minutos": 5
   },
   "clasificacion_programas": {
-    "GESTION": {
+    "OTROS": {
       "patrones": [
-        "GESTIÓN DE VENTA DE EQUIPOS",
-        "GESTION DE EMPRESAS"
+        "CURSO A MEDIDA",
+        "TALLER DE REFRIGERACIÓN DOM"
       ],
-      "valor": 15
-    },
-    "CERTIFICACION": {
-      "patrones": [
-        "CERTIFI",
-        "CERTIFICACIÓN"
-      ],
-      "valor": 15
+      "valor": 0
     },
     "MASTERCLASS": {
       "patrones": [
@@ -23,35 +16,51 @@
       ],
       "valor": 15
     },
-    "CONTINUIDAD": {
+    "GESTION": {
       "patrones": [
-        "CONTINUIDAD"
+        "GESTIÓN DE VENTA DE EQUIPOS DE AIRE ACONDICIONADO Y EQUIPOS DE REFRIGERACIÓN"
       ],
       "valor": 15
     },
-    "TRUJILLO": {
+    "CERTIFICACION": {
       "patrones": [
-        "TRUJILLO"
+        "CERTIFICACION FUNDAMENTOS DE CHILLER MODULAR INVERT- LG",
+        "PIURA - CERTIFICACIÓN MIDEA: TECNOLOGIA  INVERTER",
+        "AREQUIPA - CERTIFICACIÓN MIDEA - TECNOLOGÍA INVERTER",
+        "CERTIFICACIÓN: OPERACIÓN Y MANTENIMIENTO DE REFRIGERADORES MIDEA",
+        "TRUJILLO - CERTIFICACIÓN MIDEA: TECNOLOGÍA INVERTER",
+        "CERTIFICACIÓN MIDEA: AIRE ACOND INVERTER (INTROD., FUNC., INST. Y MANT.)",
+        "CERTIFICACIÓN"
       ],
-      "valor": 18
+      "valor": 15
+    },
+    "CARRERA": {
+      "patrones": [
+        "CARRERA TECNICA DE AIRE ACONDICIONADO Y REFRIGERACION"
+      ],
+      "valor": 20
     },
     "AREQUIPA": {
       "patrones": [
-        "AREQUIPA"
+        "AREQUIPA - TECNICO ESPECIALISTA EN REFRIGERACION DOMÉSTICA Y COMERCIAL",
+        "AREQUIPA - TECNICO ESPECIALISTA EN AIRE ACONDICIONADO"
+      ],
+      "valor": 18
+    },
+    "TRUJILLO": {
+      "patrones": [
+        "TRUJILLO - TECNICO ESPECIALISTA EN AIRE ACONDICIONADO",
+        "TRUJILLO - VIRTUAL TECNICO ESPECIALISTA EN AIRE ACONDICIONADO",
+        "TRUJILLO - TECNICO ESPECIALISTA EN REFRIGERACION DOMÉSTICA Y COMERCIAL"
       ],
       "valor": 18
     },
     "PIURA": {
       "patrones": [
-        "PIURA"
+        "PIURA - TECNICO ESPECIALISTA EN REFRIGERACION DOMÉSTICA Y COMERCIAL",
+        "PIURA - TECNICO ESPECIALISTA EN AIRE ACONDICIONADO"
       ],
       "valor": 18
-    },
-    "CARRERA": {
-      "patrones": [
-        "CARRERA"
-      ],
-      "valor": 20
     },
     "SEMINARIOS": {
       "patrones": [
@@ -60,8 +69,8 @@
         "SEM:",
         "DISEÑO",
         "DIPLOMADO",
-        "DUCTOS",
         "SEM.",
+        "DUCTOS",
         "SEMINARIO",
         "SEMINARIOS"
       ],
@@ -69,32 +78,22 @@
     },
     "TEAC": {
       "patrones": [
-        "ACONDICIONADO",
-        "TEAC",
-        "ESPECIALISTA EN AA",
-        "VIRTUAL TECNICO ESPECIALISTA EN AIRE"
+        "TALLER - TECNICO ESPECIALISTA EN AIRE ACONDICIONADO",
+        "CONTINUIDAD-TECNICO ESPECIALISTA EN AA (4M)",
+        "VIRTUAL TECNICO ESPECIALISTA EN AIRE ACONDICIONADO",
+        "MANTENIMIENTO EN AIRE ACONDICIONADO",
+        "TECNICO ESPECIALISTA EN AIRE ACONDICIONADO"
       ],
       "valor": 22
     },
     "TERC": {
       "patrones": [
-        "REFRIGERACIÓN",
-        "REFRIGERACION", 
-        "COMERCIAL",
-        "TERC"
+        "CONTINUIDAD-TECNICO ESPECIALISTA EN REFRIGERACIÓN COMERCIAL (4M)",
+        "INSTALACION EN REFRIGERACION COMERCIAL",
+        "MANTENIMIENTO EN REFRIGERACIÓN COMERCIAL",
+        "TECNICO ESPECIALISTA EN REFRIGERACION COMERCIAL"
       ],
       "valor": 22
-    },
-    "OTROS": {
-      "patrones": [
-        "VIRTUAL TECNICO ESPECIALISTA",
-        "CURSO A MEDIDA",
-        "INSTALACION EN REFRIGERACION",
-        "MANTENIMIENTO EN REFRIGERACIÓN",
-        "TALLER - TECNICO ESPECIALISTA",
-        "MANTENIMIENTO EN AIRE"
-      ],
-      "valor": 0
     }
   },
   "clasificacion_default": {
