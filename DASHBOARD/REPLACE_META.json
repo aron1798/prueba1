@@ -70,6 +70,7 @@
     },
     "SEMINARIOS": {
       "patrones": [
+        "AMONIACO",
         "VOLUMEN VARIABLE", 
         "VRV/VRF",
         "CO2",
