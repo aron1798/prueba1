@@ -5,7 +5,8 @@
   "clasificacion_programas": {
     "GESTION": {
       "patrones": [
-        "GESTIÓN DE VENTA DE EQUIPOS",
+        "GESTIÓN DE VENTA",  
+        "GESTION DE VENTA",
         "GESTION DE EMPRESAS"
       ],
       "valor": 15
@@ -69,6 +70,8 @@
     },
     "SEMINARIOS": {
       "patrones": [
+        "VOLUMEN VARIABLE", 
+        "VRV/VRF",
         "CO2",
         "CERTIF",
         "SEM:",
@@ -77,10 +80,7 @@
         "DUCTOS",
         "SEM.",
         "SEMINARIO",
-        "SEMINARIOS",
-        "SEMINARIO INSTALACIÓN DE SISTEMAS DE A/A DE VOLUMEN VARIABLE VRV/VRF",
-        "VIRTUAL SEMINARIO: SISTEMAS DE REFRIGERACIÓN INDUSTRIAL POR AMONIACO (NH3)",
-        "VIRTUAL SEMINARIO DISEÑO DE CHILLERS PARA PROCESOS INDUSTRIALES DE REFRIGERACIÓN"
+        "SEMINARIOS"
       ],
       "valor": 15
     },
