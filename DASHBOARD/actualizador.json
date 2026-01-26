@@ -37,7 +37,11 @@
     "941": { "flg_activo": "NO" },
     "936": { "flg_activo": "NO" },
     "1121": { "flg_activo": "NO" },
-    "918": { "flg_activo": "NO" }
+    "918": { "flg_activo": "NO" },
+    "15332": { "imp_tc": "3.3659" },
+    "15333": { "imp_tc": "3.3659" },
+    "15337": { "imp_tc": "3.3659" },
+    "15338": { "imp_tc": "3.3659" }
   },
   "correcciones_matriculas": {
     "1529433": {
