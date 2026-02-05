@@ -49,7 +49,8 @@
   "correcciones_continuidad": {
     "15283": "SI",
     "15286": "SI",
-    "15340": "NO"
+    "15340": "NO",
+    "15141": "NO"
   },
   "correcciones_descuento": {
     "15141": "SI"
