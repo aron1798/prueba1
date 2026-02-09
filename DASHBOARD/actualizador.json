@@ -39,14 +39,13 @@
     "918": { "flg_activo": "NO" }
   },
   "correcciones_matriculas": {
-    "15369": {"imp_saldo_matricula": 0, "imp_saldo_cuota1": 0, "fch_cancelacion_cuota1": "2026-01-20"}, 
-    "15332": {"imp_tc": 3.3659}, 
-    "15333": {"imp_tc": 3.3659},
-    "15337": {"imp_tc": 3.3659},
-    "15338": {"imp_tc": 3.3659}
+    "15369": { "imp_saldo_matricula": 0, "imp_saldo_cuota1": 0, "fch_cancelacion_cuota1": "2026-01-20" }, 
+    "15332": { "imp_tc": 3.3659 }, 
+    "15333": { "imp_tc": 3.3659 },
+    "15337": { "imp_tc": 3.3659 },
+    "15338": { "imp_tc": 3.3659 }
   },
   "correcciones_continuidad": {
-    
     "15286": "SI",
     "15340": "NO",
     "15141": "NO"
@@ -54,7 +53,7 @@
   "correcciones_descuento": {
     "15141": "SI"
   },
-  "lista_pendientes": {
+  "lista_pendientes": [
     "AGUILAR U. JUAN CARLOS",
     "CHAVEZ  P. DIANA",
     "HUAMAN C. ALONSO AGUSTIN",
@@ -62,6 +61,5 @@
     "LAZARO Q. DIEGO ARTURO",
     "MONTOYA D. CARMEN ISABEL",
     "PERALTA  C. ALMENDRA LUCIA"
-    }
-
+  ]
 }
