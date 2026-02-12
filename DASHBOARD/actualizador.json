@@ -3,6 +3,7 @@
     "auto_update_minutos": 1
   },
   "cursos_personalizados": {
+    "1124": { "fch_inicio": "20-03-2026" },
     "1030": { "flg_activo": "NO" },
     "1052": { "flg_activo": "NO" },
     "1049": { "flg_activo": "NO" },
