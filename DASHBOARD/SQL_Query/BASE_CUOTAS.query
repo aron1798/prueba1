@@ -1,0 +1,56 @@
+SELECT 
+    -- Columnas del Cronograma de Matrícula (T1)
+    T1.cod_localidad,
+    T1.num_matricula,
+    T1.num_refinanciamiento,
+    T1.num_cuota,
+    T1.cod_tipo_cuota,
+    T1.fch_vencimiento,
+    T1.fch_cancelacion,
+    T1.cod_estado,
+    T1.cod_estado_ant,
+    T1.imp_valor_igv,
+    T1.imp_subtotal,
+    T1.imp_interes,
+    T1.imp_igv,
+    T1.imp_total,
+    T1.imp_total_pagado,
+    T1.imp_total_emitido,
+    T1.imp_saldo,
+    T1.imp_dscto,
+    T1.dsc_observacion,
+
+    -- Columnas de la Matrícula y Programa (Solicitadas)
+    M.fch_matricula,                -- Fecha de la Matrícula
+    M.cod_estado AS estado_matricula, -- Estado de la Matrícula
+    P.dsc_programa,                 -- Descripción del Programa
+    RP.dsc_det_programa,            -- Detalle del Programa (Período)
+    RP.fch_inicio,                  -- Fecha de Inicio del Programa (YA AGREGADA)
+    M.cod_moneda,                   -- Código de Moneda
+    C.dsc_cuota,                    -- Descripción del Tipo de Cuota
+    M.imp_tc                        -- Tipo de Cambio (TC) AGREGADA
+FROM 
+    [BDUS_CK000040_0001].[dbo].[sgede_cronograma_matricula] T1 -- Tabla principal (Cronograma)
+INNER JOIN 
+    sgeca_matricula M -- Se une con la Matrícula para obtener información base
+    ON T1.cod_localidad = M.cod_localidad 
+    AND T1.num_matricula = M.num_matricula
+LEFT JOIN 
+    sgeca_programa P -- Se une al Programa
+    ON M.cod_programa = P.cod_programa
+LEFT JOIN 
+    sgede_RP_programa RP -- Se une al Detalle de Programa (contiene fch_inicio)
+    ON M.cod_programa = RP.cod_programa 
+    AND M.cod_periodo = RP.cod_detalle 
+    AND M.num_indice = RP.num_indice
+LEFT JOIN 
+    vtama_cuota C -- Se une a la descripción de la Cuota
+    ON M.cod_cuota = C.cod_cuota
+WHERE 
+    -- Aquí están los comodines "?" que Python reemplazará por el Año y el Mes
+    YEAR(RP.fch_inicio) = ?
+    AND MONTH(RP.fch_inicio) = ?
+    -- Mantenemos tu filtro original como una condición adicional
+    AND T1.fch_vencimiento > '2020-01-01 00:00:00:000'
+ORDER BY 
+    T1.fch_vencimiento ASC;
