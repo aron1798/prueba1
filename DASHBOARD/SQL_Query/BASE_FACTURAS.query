@@ -1,0 +1,72 @@
+SELECT
+comp.[num_correlativo],
+comp.[fch_emision],
+comp.[fch_cancelacion],
+comp.[dsc_glosa],
+comp.[cod_estado],
+comp.[cod_moneda],
+comp.[imp_subtotal],
+comp.[imp_igv],
+comp.[imp_total],
+comp.[imp_saldo],
+comp.[imp_tc],
+comp.[flg_adelanto],
+comp.[imp_valor_igv],
+comp.[imp_descuento],
+comp.[flg_nc],
+comp.[fch_registro],
+comp.[fch_vencimiento],
+comp.[imp_recibido],
+comp.[imp_afecto],
+comp.[imp_inafecto],
+comp.[imp_tasa],
+comp.[dsc_glosa_adicional],
+
+-- Nueva columna agregada: dsc_cr
+-- Obtiene el nombre del Centro de Responsabilidad asociado al programa de la matrícula
+cr_prog.dsc_centroresp AS dsc_cr,
+
+-- Campos del programa académico
+rp.dsc_det_programa,
+mat.num_indice, 
+mat.cod_estado AS estado_matricula, -- ESTADO DE LA MATRÍCULA (NUEVA COLUMNA AGREGADA)
+
+-- Campos de cuotas y matrícula
+cxc.num_matricula,
+cxc.num_cuota,
+COALESCE(cxc.imp_emitido, comp.imp_total) as imp_emitido,
+
+-- Información adicional de la cuota
+cron.fch_vencimiento as fch_vencimiento_cuota,
+cron.imp_total as imp_total_cuota,
+cron.imp_saldo as imp_saldo_cuota,
+cron.cod_estado as estado_cuota
+FROM [BDUS_CK000040_0001].[dbo].[vtaca_comprobante] comp
+
+-- Relación con cuotas
+LEFT JOIN sgevi_cuotas_x_comprobante cxc ON comp.cod_localidad = cxc.cod_localidad
+AND comp.num_correlativo = cxc.num_correlativo
+
+-- Relación con matrícula
+LEFT JOIN sgeca_matricula mat ON cxc.cod_localidad_c = mat.cod_localidad
+AND cxc.num_matricula = mat.num_matricula
+
+-- Relación con el programa académico para dsc_det_programa
+LEFT JOIN sgede_RP_programa rp ON mat.cod_programa = rp.cod_programa
+AND mat.cod_periodo = rp.cod_detalle
+AND mat.num_indice = rp.num_indice
+
+-- RELACIONES PARA dsc_cr:
+-- 1. Obtenemos la cabecera del programa desde la matrícula
+LEFT JOIN sgeca_programa prog ON mat.cod_programa = prog.cod_programa
+-- 2. Obtenemos la descripción del CR desde la tabla de RHUMA
+LEFT JOIN rhuma_centroresponsabilidad cr_prog ON prog.cod_centroresp = cr_prog.cod_centroresp
+
+-- Información adicional del cronograma de cuotas
+LEFT JOIN sgede_cronograma_matricula cron ON cxc.cod_localidad_c = cron.cod_localidad
+AND cxc.num_matricula = cron.num_matricula
+AND cxc.num_refinanciamiento = cron.num_refinanciamiento
+AND cxc.num_cuota = cron.num_cuota
+
+WHERE comp.fch_emision BETWEEN '01-01-2024 00:00:00.000' AND '31-12-2028 00:00:00.000'
+ORDER BY comp.fch_emision ASC;
