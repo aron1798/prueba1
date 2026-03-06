@@ -14,6 +14,7 @@ SELECT
 
     -- Columnas de Matrícula y Programa
     M.fch_matricula,           
+    M.fch_retiro,               -- ¡ESTRICTAMENTE NECESARIA para la fórmula DAX en Python!
     M.cod_estado AS estado_matricula, 
     P.dsc_programa,            
     RP.dsc_det_programa,       
@@ -24,10 +25,10 @@ SELECT
     M.cod_moneda,                  
     M.imp_tc,
 
-    -- NUEVA COLUMNA: Sectorista
-    (ISNULL(TRA.dsc_nombres, '') + ' ' + 
-     ISNULL(TRA.dsc_apellido_paterno, '') + ' ' + 
-     ISNULL(TRA.dsc_apellido_materno, '')) AS dsc_sectorista
+    -- NUEVA COLUMNA: Información del Sectorista
+    (ISNULL(EMP.dsc_apellido_paterno, '') + ' ' + 
+     ISNULL(EMP.dsc_apellido_materno, '') + ', ' + 
+     ISNULL(EMP.dsc_nombres, '')) AS dsc_sectorista
 
 FROM 
     [BDUS_CK000040_0001].[dbo].[sgede_cronograma_matricula] T1 
@@ -47,15 +48,16 @@ LEFT JOIN
     vtama_cuota C 
     ON M.cod_cuota = C.cod_cuota
 
--- JOINs para traer al Sectorista
+-- ¡AQUÍ ESTÁ LA SOLUCIÓN AL ERROR SQL! (Usando cod_detalle)
 LEFT JOIN 
-    [BDUS_CK000040_0001].[dbo].[sgede_RP_programa_sectorista] SEC
-    ON M.cod_programa = SEC.cod_programa
-    AND M.cod_periodo = SEC.cod_periodo
-    AND M.num_indice = SEC.num_indice
+    [BDUS_CK000040_0001].[dbo].[sgede_RP_programa_sectorista] SEC_ASIG
+    ON M.cod_programa = SEC_ASIG.cod_programa
+    AND M.cod_periodo = SEC_ASIG.cod_detalle
+    AND M.num_indice = SEC_ASIG.num_indice
+
 LEFT JOIN 
-    [BDUS_CK000040_0001].[dbo].[rhuma_trabajador] TRA
-    ON SEC.cod_trabajador = TRA.cod_trabajador
+    [BDUS_CK000040_0001].[dbo].[rhuma_trabajador] EMP
+    ON SEC_ASIG.cod_trabajador = EMP.cod_trabajador
 
 WHERE 
     YEAR(RP.fch_inicio) IN (2025, 2026)
