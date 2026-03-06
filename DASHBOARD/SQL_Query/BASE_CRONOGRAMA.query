@@ -1,46 +1,63 @@
-SELECT
--- Columnas del Cronograma de Matrícula (T1)
-T1.num_matricula,
-T1.num_cuota,
-T1.fch_vencimiento,
-T1.fch_cancelacion,
-T1.cod_estado,
-T1.cod_estado_ant,
-T1.imp_total,
-T1.imp_total_pagado,
-T1.imp_total_emitido,
-T1.imp_saldo,
-T1.imp_dscto,
+SELECT 
+    -- Columnas del Cronograma de Matrícula (T1)
+    T1.num_matricula,
+    T1.num_cuota,
+    T1.fch_vencimiento,
+    T1.fch_cancelacion,
+    T1.cod_estado,
+    T1.cod_estado_ant,
+    T1.imp_total,
+    T1.imp_total_pagado,
+    T1.imp_total_emitido,
+    T1.imp_saldo,
+    T1.imp_dscto,
 
-M.fch_matricula,            
-M.cod_estado AS estado_matricula, 
-P.dsc_programa,            
-RP.dsc_det_programa,          
-M.num_indice,                 
-RP.fch_inicio,                
-RP.fch_fin,                 
-RP.cod_estado as estado_programa,                 
-M.cod_moneda,            
-M.imp_tc                        
-FROM
-[BDUS_CK000040_0001].[dbo].[sgede_cronograma_matricula] T1 -- Tabla principal (Cronograma)
-INNER JOIN
-sgeca_matricula M -- Se une con la Matrícula para obtener información base
-ON T1.cod_localidad = M.cod_localidad
-AND T1.num_matricula = M.num_matricula
-LEFT JOIN
-sgeca_programa P -- Se une al Programa
-ON M.cod_programa = P.cod_programa
-LEFT JOIN
-sgede_RP_programa RP -- Se une al Detalle de Programa (contiene fch_inicio)
-ON M.cod_programa = RP.cod_programa
-AND M.cod_periodo = RP.cod_detalle
-AND M.num_indice = RP.num_indice
-LEFT JOIN
-vtama_cuota C -- Se une a la descripción de la Cuota
-ON M.cod_cuota = C.cod_cuota
-WHERE
--- Filtro: Solo programas que iniciaron en 2025 o 2026
-YEAR(RP.fch_inicio) IN (2025, 2026)
-ORDER BY
-T1.fch_vencimiento ASC;
+    -- Columnas de Matrícula y Programa
+    M.fch_matricula,           
+    M.cod_estado AS estado_matricula, 
+    P.dsc_programa,            
+    RP.dsc_det_programa,       
+    M.num_indice,              
+    RP.fch_inicio,             
+    RP.fch_fin,                
+    RP.cod_estado as estado_programa,                    
+    M.cod_moneda,                  
+    M.imp_tc,
+
+    -- NUEVA COLUMNA: Sectorista
+    (ISNULL(TRA.dsc_nombres, '') + ' ' + 
+     ISNULL(TRA.dsc_apellido_paterno, '') + ' ' + 
+     ISNULL(TRA.dsc_apellido_materno, '')) AS dsc_sectorista
+
+FROM 
+    [BDUS_CK000040_0001].[dbo].[sgede_cronograma_matricula] T1 
+INNER JOIN 
+    sgeca_matricula M 
+    ON T1.cod_localidad = M.cod_localidad 
+    AND T1.num_matricula = M.num_matricula
+LEFT JOIN 
+    sgeca_programa P 
+    ON M.cod_programa = P.cod_programa
+LEFT JOIN 
+    sgede_RP_programa RP 
+    ON M.cod_programa = RP.cod_programa 
+    AND M.cod_periodo = RP.cod_detalle 
+    AND M.num_indice = RP.num_indice
+LEFT JOIN 
+    vtama_cuota C 
+    ON M.cod_cuota = C.cod_cuota
+
+-- JOINs para traer al Sectorista
+LEFT JOIN 
+    [BDUS_CK000040_0001].[dbo].[sgede_RP_programa_sectorista] SEC
+    ON M.cod_programa = SEC.cod_programa
+    AND M.cod_periodo = SEC.cod_periodo
+    AND M.num_indice = SEC.num_indice
+LEFT JOIN 
+    [BDUS_CK000040_0001].[dbo].[rhuma_trabajador] TRA
+    ON SEC.cod_trabajador = TRA.cod_trabajador
+
+WHERE 
+    YEAR(RP.fch_inicio) IN (2025, 2026)
+ORDER BY 
+    T1.fch_vencimiento ASC;
