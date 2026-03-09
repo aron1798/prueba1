@@ -28,8 +28,11 @@ cr_prog.dsc_centroresp AS dsc_cr,
 
 -- Campos del programa académico
 rp.dsc_det_programa,
+rp.fch_inicio,                      -- <--- LÍNEA AÑADIDA: Para el filtro fch_inicio < TODAY()
+prog.dsc_programa,                  -- <--- LÍNEA AÑADIDA: Para clasificar la sede (LIMA, PIURA, etc.)
 mat.num_indice, 
 mat.cod_estado AS estado_matricula, -- ESTADO DE LA MATRÍCULA (NUEVA COLUMNA AGREGADA)
+mat.fch_retiro,                     -- <--- LÍNEA AÑADIDA: Para el filtro de estado_matricula = "RET"
 
 -- Campos de cuotas y matrícula
 cxc.num_matricula,
