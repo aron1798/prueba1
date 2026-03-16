@@ -21,14 +21,17 @@ SELECT
     M.num_indice,              
     RP.fch_inicio,             
     RP.fch_fin,                
-    RP.cod_estado as estado_programa,                    
+    RP.cod_estado as estado_programa,                     
     M.cod_moneda,                  
     M.imp_tc,
 
-    -- NUEVA COLUMNA: Información del Sectorista
+    -- Información del Sectorista
     (ISNULL(EMP.dsc_apellido_paterno, '') + ' ' + 
      ISNULL(EMP.dsc_apellido_materno, '') + ', ' + 
-     ISNULL(EMP.dsc_nombres, '')) AS dsc_sectorista
+     ISNULL(EMP.dsc_nombres, '')) AS dsc_sectorista,
+
+    -- NUEVA COLUMNA (AL FINAL PARA EVITAR DESPLAZAMIENTOS)
+    RP.cod_frecuencia
 
 FROM 
     [BDUS_CK000040_0001].[dbo].[sgede_cronograma_matricula] T1 
@@ -48,7 +51,6 @@ LEFT JOIN
     vtama_cuota C 
     ON M.cod_cuota = C.cod_cuota
 
--- ¡AQUÍ ESTÁ LA SOLUCIÓN AL ERROR SQL! (Usando cod_detalle)
 LEFT JOIN 
     [BDUS_CK000040_0001].[dbo].[sgede_RP_programa_sectorista] SEC_ASIG
     ON M.cod_programa = SEC_ASIG.cod_programa
