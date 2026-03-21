@@ -31,5 +31,31 @@
   },
   "clasificacion_default": {
     "sede": "LIMA"
-  }
+  },
+  "reemplazos_nombre": [
+    {
+      "buscar": "TECNICO ESPECIALISTA EN REFRIGERACION DOMÉSTICA Y COMERCIAL",
+      "reemplazar": "TERC"
+    },
+    {
+      "buscar": "TECNICO ESPECIALISTA EN REFRIGERACION DOMESTICA Y COMERCIAL",
+      "reemplazar": "TERC"
+    },
+    {
+      "buscar": "TECNICO ESPECIALISTA EN REFRIGERACION COMERCIAL",
+      "reemplazar": "TERC"
+    },
+    {
+      "buscar": "TECNICO ESPECIALISTA EN AIRE ACONDICIONADO",
+      "reemplazar": "TEAC"
+    },
+    {
+      "buscar": "CARRERA TÉCNICA DE AIRE ACONDICIONADO Y REFRIGERACIÓN",
+      "reemplazar": "CARRERA TECNICA"
+    },
+    {
+      "buscar": "CARRERA TECNICA DE AIRE ACONDICIONADO Y REFRIGERACION",
+      "reemplazar": "CARRERA TECNICA"
+    }
+  ]
 }
