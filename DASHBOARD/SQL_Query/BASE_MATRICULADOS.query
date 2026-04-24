@@ -1,11 +1,8 @@
 SELECT 
-	sgede_RP_programa.num_indice,
-    vtama_localidad.dsc_localidad,
+    sgede_RP_programa.num_indice,
     sgeca_matricula.num_matricula,
     sgeca_matricula.fch_matricula,
     sgeca_matricula.cod_estado AS estado_matricula,
-    sgema_alumno.dsc_telefono_1,
-	sgema_alumno.dsc_telefono_2,
     (
         SELECT 
             rhuma_trabajador.dsc_apellido_paterno + ' ' +
@@ -30,19 +27,11 @@ SELECT
         FROM vtama_cuota
         WHERE vtama_cuota.cod_cuota = sgeca_matricula.cod_cuota
     ) AS dsc_cuota,
-    (
-        SELECT sgema_beca.dsc_beca
-        FROM sgema_beca
-        WHERE sgema_beca.cod_beca = sgeca_matricula.cod_beca
-    ) AS dsc_beca,
     sgeca_matricula.imp_beca,
     sgema_alumno.dsc_apellido_paterno + ' ' + sgema_alumno.dsc_apellido_materno + ', ' + sgema_alumno.dsc_nombres AS dsc_alumno,
-    vtama_tipo_documento.dsc_tipo_documento,
     sgema_alumno.dsc_documento,
     sgeca_programa.dsc_programa,
-    sgede_RP_programa.dsc_det_programa AS dsc_promocion,
-	sgede_RP_programa.fch_inicio,
-    sgeca_matricula.num_contrato_interno,
+    sgede_RP_programa.fch_inicio,
     ISNULL((
         SELECT sgede_cronograma_matricula.imp_saldo
         FROM sgede_cronograma_matricula
@@ -51,7 +40,7 @@ SELECT
             AND sgede_cronograma_matricula.num_refinanciamiento = 1
             AND sgede_cronograma_matricula.num_cuota = 0
     ), 0) AS imp_saldo_matricula,
-	(
+    (
         SELECT TOP 1 sgede_cronograma_matricula.fch_vencimiento
         FROM sgede_cronograma_matricula
         WHERE sgede_cronograma_matricula.cod_localidad = sgeca_matricula.cod_localidad
@@ -67,7 +56,7 @@ SELECT
             AND sgede_cronograma_matricula.num_refinanciamiento = 1
             AND sgede_cronograma_matricula.num_cuota = 1
     ), 0) AS imp_saldo_cuota1,
-	(
+    (
         SELECT TOP 1 sgede_cronograma_matricula.fch_vencimiento
         FROM sgede_cronograma_matricula
         WHERE sgede_cronograma_matricula.cod_localidad = sgeca_matricula.cod_localidad
@@ -75,7 +64,7 @@ SELECT
             AND sgede_cronograma_matricula.num_refinanciamiento = 1
             AND sgede_cronograma_matricula.num_cuota = 1
     ) AS fch_venc_cuota1,
-	(
+    (
         SELECT TOP 1 sgede_cronograma_matricula.fch_cancelacion
         FROM sgede_cronograma_matricula
         WHERE sgede_cronograma_matricula.cod_localidad = sgeca_matricula.cod_localidad
@@ -83,7 +72,7 @@ SELECT
             AND sgede_cronograma_matricula.num_refinanciamiento = 1
             AND sgede_cronograma_matricula.num_cuota = 1
     ) AS fch_cancelacion_cuota1,
-	(
+    (
         SELECT TOP 1 sgede_cronograma_matricula.cod_estado
         FROM sgede_cronograma_matricula
         WHERE sgede_cronograma_matricula.cod_localidad = sgeca_matricula.cod_localidad
@@ -115,7 +104,7 @@ SELECT
             AND sgede_cronograma_matricula.num_refinanciamiento = 1
             AND sgede_cronograma_matricula.num_cuota = 3
     ), 0) AS imp_saldo_cuota3,
-	(
+    (
         SELECT TOP 1 sgede_cronograma_matricula.fch_vencimiento
         FROM sgede_cronograma_matricula
         WHERE sgede_cronograma_matricula.cod_localidad = sgeca_matricula.cod_localidad
@@ -131,7 +120,7 @@ SELECT
             AND sgede_cronograma_matricula.num_refinanciamiento = 1
             AND sgede_cronograma_matricula.num_cuota = 4
     ), 0) AS imp_saldo_cuota4,
-	(
+    (
         SELECT TOP 1 sgede_cronograma_matricula.fch_vencimiento
         FROM sgede_cronograma_matricula
         WHERE sgede_cronograma_matricula.cod_localidad = sgeca_matricula.cod_localidad
@@ -147,7 +136,7 @@ SELECT
             AND sgede_cronograma_matricula.num_refinanciamiento = 1
             AND sgede_cronograma_matricula.num_cuota = 5
     ), 0) AS imp_saldo_cuota5,
-	(
+    (
         SELECT TOP 1 sgede_cronograma_matricula.fch_vencimiento
         FROM sgede_cronograma_matricula
         WHERE sgede_cronograma_matricula.cod_localidad = sgeca_matricula.cod_localidad
@@ -163,7 +152,7 @@ SELECT
             AND sgede_cronograma_matricula.num_refinanciamiento = 1
             AND sgede_cronograma_matricula.num_cuota = 6
     ), 0) AS imp_saldo_cuota6,
-	(
+    (
         SELECT TOP 1 sgede_cronograma_matricula.fch_vencimiento
         FROM sgede_cronograma_matricula
         WHERE sgede_cronograma_matricula.cod_localidad = sgeca_matricula.cod_localidad
@@ -171,7 +160,7 @@ SELECT
             AND sgede_cronograma_matricula.num_refinanciamiento = 1
             AND sgede_cronograma_matricula.num_cuota = 6
     ) AS fch_venc_cuota6,
-	ISNULL((
+    ISNULL((
         SELECT sgede_cronograma_matricula.imp_saldo
         FROM sgede_cronograma_matricula
         WHERE sgede_cronograma_matricula.cod_localidad = sgeca_matricula.cod_localidad
@@ -179,7 +168,7 @@ SELECT
             AND sgede_cronograma_matricula.num_refinanciamiento = 1
             AND sgede_cronograma_matricula.num_cuota = 7
     ), 0) AS imp_saldo_cuota7,
-	(
+    (
         SELECT TOP 1 sgede_cronograma_matricula.fch_vencimiento
         FROM sgede_cronograma_matricula
         WHERE sgede_cronograma_matricula.cod_localidad = sgeca_matricula.cod_localidad
@@ -187,15 +176,6 @@ SELECT
             AND sgede_cronograma_matricula.num_refinanciamiento = 1
             AND sgede_cronograma_matricula.num_cuota = 7
     ) AS fch_venc_cuota7,
-    CASE 
-        WHEN ISNULL((
-            SELECT COUNT(1)
-            FROM sgeca_matricula a
-            WHERE a.cod_alumno = sgeca_matricula.cod_alumno
-                AND a.cod_estado = 'ANU'
-        ), 0) > 0 THEN 'SI'
-        ELSE 'NO'
-    END AS flg_anulado_anterior,
     (
         SELECT TOP 1 a.fch_anulacion
         FROM sgeca_matricula a
@@ -203,24 +183,6 @@ SELECT
             AND a.cod_estado = 'ANU'
         ORDER BY a.fch_matricula DESC
     ) AS fch_anulacion_anterior,
-    (
-        SELECT TOP 1 b.dsc_programa
-        FROM sgeca_matricula a
-        JOIN sgeca_programa b ON a.cod_programa = b.cod_programa
-        WHERE a.cod_alumno = sgeca_matricula.cod_alumno
-            AND a.cod_estado = 'ANU'
-        ORDER BY a.fch_matricula DESC
-    ) AS programa_anulacion_anterior,
-    (
-        SELECT TOP 1 ISNULL(rp.dsc_det_programa, a.cod_periodo)
-        FROM sgeca_matricula a
-        LEFT JOIN sgede_RP_programa rp ON a.cod_periodo = rp.cod_detalle
-            AND a.cod_programa = rp.cod_programa
-            AND a.num_indice = rp.num_indice
-        WHERE a.cod_alumno = sgeca_matricula.cod_alumno
-            AND a.cod_estado = 'ANU'
-        ORDER BY a.fch_matricula DESC
-    ) AS periodo_anulacion_anterior,
 
     -- NUEVA COLUMNA imp_tc AL FINAL (Garantiza 1 valor por matrícula)
     ISNULL((
@@ -249,4 +211,4 @@ WHERE
     AND MONTH(sgeca_matricula.fch_matricula) = ?
     AND sgeca_matricula.cod_estado NOT IN ('ANU', 'SUS')
 ORDER BY 
-	num_indice ASC
+    num_indice ASC
