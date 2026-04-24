@@ -258,7 +258,7 @@ SELECT
     ) AS periodo_anulacion_anterior,
 
     -- ==========================================
-    -- TIPO DE CAMBIO (AL FINAL)
+    -- TIPO DE CAMBIO
     -- ==========================================
     ISNULL((
         SELECT TOP 1 comp.imp_tc
@@ -269,7 +269,16 @@ SELECT
           AND cxc.cod_localidad_c = sgeca_matricula.cod_localidad
           AND comp.cod_estado NOT IN ('ANU', 'ELI')
         ORDER BY comp.fch_emision DESC
-    ), 0) AS imp_tc
+    ), 0) AS imp_tc,
+
+    -- ==========================================
+    -- IMPORTE TOTAL PAGADO (AGREGADO)
+    -- ==========================================
+    (SELECT SUM(sgede_cronograma_matricula.imp_total_pagado) 
+     FROM sgede_cronograma_matricula 
+     WHERE sgede_cronograma_matricula.cod_localidad = sgeca_matricula.cod_localidad 
+       AND sgede_cronograma_matricula.num_matricula = sgeca_matricula.num_matricula 
+       AND sgede_cronograma_matricula.num_refinanciamiento = sgeca_matricula.num_refinanciamiento) AS imp_total_pagado
 
 FROM sgeca_matricula
 INNER JOIN sgeca_programa 
