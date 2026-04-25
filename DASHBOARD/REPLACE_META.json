@@ -36,31 +36,6 @@
       ],
       "valor": 15
     },
-    "TRUJILLO": {
-      "patrones": [
-        "TRUJILLO",
-        "TRUJILLO - TECNICO ESPECIALISTA EN AIRE ACONDICIONADO",
-        "TRUJILLO - VIRTUAL TECNICO ESPECIALISTA EN AIRE ACONDICIONADO",
-        "TRUJILLO - TECNICO ESPECIALISTA EN REFRIGERACION DOMÉSTICA Y COMERCIAL"
-      ],
-      "valor": 18
-    },
-    "AREQUIPA": {
-      "patrones": [
-        "AREQUIPA",
-        "AREQUIPA - TECNICO ESPECIALISTA EN REFRIGERACION DOMÉSTICA Y COMERCIAL",
-        "AREQUIPA - TECNICO ESPECIALISTA EN AIRE ACONDICIONADO"
-      ],
-      "valor": 18
-    },
-    "PIURA": {
-      "patrones": [
-        "PIURA",
-        "PIURA - TECNICO ESPECIALISTA EN REFRIGERACION DOMÉSTICA Y COMERCIAL",
-        "PIURA - TECNICO ESPECIALISTA EN AIRE ACONDICIONADO"
-      ],
-      "valor": 18
-    },
     "CARRERA": {
       "patrones": [
         "CARRERA",
@@ -84,6 +59,44 @@
         "SEMINARIOS"
       ],
       "valor": 15
+    },
+    "OTROS": {
+      "patrones": [
+        "VIRTUAL TECNICO ESPECIALISTA",
+        "CURSO A MEDIDA",
+        "INSTALACION EN REFRIGERACION",
+        "MANTENIMIENTO EN REFRIGERACIÓN",
+        "TALLER - TECNICO ESPECIALISTA",
+        "MANTENIMIENTO EN AIRE",
+        "TALLER DE REFRIGERACIÓN DOM",
+        "TALLER VIVENCIAL EN AIRE ACONDICIONADO"
+      ],
+      "valor": 0
+    },
+    "AREQUIPA": {
+      "patrones": [
+        "AREQUIPA",
+        "AREQUIPA - TECNICO ESPECIALISTA EN REFRIGERACION DOMÉSTICA Y COMERCIAL",
+        "AREQUIPA - TECNICO ESPECIALISTA EN AIRE ACONDICIONADO"
+      ],
+      "valor": 18
+    },
+    "PIURA": {
+      "patrones": [
+        "PIURA",
+        "PIURA - TECNICO ESPECIALISTA EN REFRIGERACION DOMÉSTICA Y COMERCIAL",
+        "PIURA - TECNICO ESPECIALISTA EN AIRE ACONDICIONADO"
+      ],
+      "valor": 18
+    },
+    "TRUJILLO": {
+      "patrones": [
+        "TRUJILLO",
+        "TRUJILLO - TECNICO ESPECIALISTA EN AIRE ACONDICIONADO",
+        "TRUJILLO - VIRTUAL TECNICO ESPECIALISTA EN AIRE ACONDICIONADO",
+        "TRUJILLO - TECNICO ESPECIALISTA EN REFRIGERACION DOMÉSTICA Y COMERCIAL"
+      ],
+      "valor": 18
     },
     "TEAC": {
       "patrones": [
@@ -111,19 +124,6 @@
         "TECNICO ESPECIALISTA EN REFRIGERACION COMERCIAL"
       ],
       "valor": 22
-    },
-    "OTROS": {
-      "patrones": [
-        "VIRTUAL TECNICO ESPECIALISTA",
-        "CURSO A MEDIDA",
-        "INSTALACION EN REFRIGERACION",
-        "MANTENIMIENTO EN REFRIGERACIÓN",
-        "TALLER - TECNICO ESPECIALISTA",
-        "MANTENIMIENTO EN AIRE",
-        "TALLER DE REFRIGERACIÓN DOM",
-        "TALLER VIVENCIAL EN AIRE ACONDICIONADO"
-      ],
-      "valor": 0
     }
   },
   "clasificacion_default": {
