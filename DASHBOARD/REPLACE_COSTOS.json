@@ -1,0 +1,63 @@
+{
+  "epp": {
+    "piura": 28,
+    "trujillo": 28,
+    "arequipa": 28,
+    "programas": 28,
+    "carrera": 28,
+    "seminarios": 0,
+    "otros": 0
+  },
+  "certificado": {
+    "piura": 7,
+    "trujillo": 7,
+    "arequipa": 7,
+    "programas": 7,
+    "carrera": 7,
+    "seminarios": 0,
+    "otros": 0
+  },
+  "consumibles": {
+    "piura": 676,
+    "trujillo": 676,
+    "arequipa": 676,
+    "programas": 614,
+    "carrera": 614,
+    "seminarios": 0,
+    "otros": 0
+  },
+  "marketing": {
+    "piura": 2839,
+    "trujillo": 2839,
+    "arequipa": 2839,
+    "programas": 3499,
+    "carrera": 3499,
+    "seminarios": 0,
+    "otros": {
+      "VRV/VRF": 4500,
+      "INDUSTRIAL POR AMONIACO (NH3)": 1000,
+      "VIRTUAL SEMINARIO DISEÑO DE CHILLERS": 900,
+      "DIPLOMADO INTERNACIONAL": 1300,
+      "SEMINARIO VIRTUAL METRADO , COSTEO": 800,
+      "VIRTUAL SEMINARIO DISEÑO DE CAMARAS": 1000,
+      "DEFAULT": 0
+    }
+  },
+  "docente": {
+    "piura": 5115,
+    "trujillo": 5115,
+    "arequipa": 6500,
+    "programas": 4560,
+    "carrera": 4560,
+    "seminarios": 0,
+    "otros": {
+      "VRV/VRF": 4500,
+      "INDUSTRIAL POR AMONIACO (NH3)": 4000,
+      "VIRTUAL SEMINARIO DISEÑO DE CHILLERS": 3000,
+      "DIPLOMADO INTERNACIONAL": 7000,
+      "SEMINARIO VIRTUAL METRADO , COSTEO": 2000,
+      "VIRTUAL SEMINARIO DISEÑO DE CAMARAS": 4000,
+      "DEFAULT": 0
+    }
+  }
+}
