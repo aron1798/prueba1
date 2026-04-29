@@ -5,7 +5,6 @@
     "arequipa": 28,
     "programas": 28,
     "carrera": 28,
-    "seminarios": 0,
     "otros": 0
   },
   "certificado": {
@@ -14,7 +13,6 @@
     "arequipa": 7,
     "programas": 7,
     "carrera": 7,
-    "seminarios": 0,
     "otros": 0
   },
   "consumibles": {
@@ -23,7 +21,6 @@
     "arequipa": 676,
     "programas": 614,
     "carrera": 614,
-    "seminarios": 0,
     "otros": 0
   },
   "marketing": {
@@ -32,7 +29,6 @@
     "arequipa": 2839,
     "programas": 3499,
     "carrera": 3499,
-    "seminarios": 0,
     "otros": {
       "VRV/VRF": 4500,
       "INDUSTRIAL POR AMONIACO (NH3)": 1000,
@@ -49,7 +45,6 @@
     "arequipa": 6500,
     "programas": 4560,
     "carrera": 4560,
-    "seminarios": 0,
     "otros": {
       "VRV/VRF": 4500,
       "INDUSTRIAL POR AMONIACO (NH3)": 4000,
