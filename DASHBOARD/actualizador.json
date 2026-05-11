@@ -12,7 +12,7 @@
     "1093": { "flg_activo": "NO" },
     "1015": { "flg_activo": "NO" },
     "1010": { "flg_activo": "NO" },
-    "998": { "flg_activo": "NO" },
+    "998":  { "flg_activo": "NO" },
     "1097": { "flg_activo": "NO" },
     "1096": { "flg_activo": "NO" },
     "1079": { "flg_activo": "NO" },
@@ -26,31 +26,30 @@
     "1006": { "flg_activo": "NO" },
     "1040": { "flg_activo": "NO" },
     "1000": { "flg_activo": "NO" },
-    "974": { "flg_activo": "NO" },
-    "984": { "flg_activo": "NO" },
+    "974":  { "flg_activo": "NO" },
+    "984":  { "flg_activo": "NO" },
     "1059": { "flg_activo": "NO" },
     "1043": { "flg_activo": "NO" },
-    "959": { "flg_activo": "NO" },
-    "966": { "flg_activo": "NO" },
-    "940": { "flg_activo": "NO" },
-    "941": { "flg_activo": "NO" },
-    "936": { "flg_activo": "NO" },
+    "959":  { "flg_activo": "NO" },
+    "966":  { "flg_activo": "NO" },
+    "940":  { "flg_activo": "NO" },
+    "941":  { "flg_activo": "NO" },
+    "936":  { "flg_activo": "NO" },
     "1121": { "flg_activo": "NO" },
-    "918": { "flg_activo": "NO" },
+    "918":  { "flg_activo": "NO" },
     "1132": { "flg_activo": "NO" },
     "1130": { "flg_activo": "NO" },
     "1153": { "flg_activo": "NO" },
     "1163": { "flg_activo": "NO" },
     "1154": { "flg_activo": "NO" },
-    "1165": { "flg_activo": "NO" ),
-    "1121": { "flg_activo": "NO" )
+    "1165": { "flg_activo": "NO" }
   },
   "correcciones_matriculas": {
-    "15369": { "imp_saldo_matricula": 0, "imp_saldo_cuota1": 0, "fch_cancelacion_cuota1": "2026-01-20" }, 
-    "15456": { "imp_saldo_matricula": 0, "imp_saldo_cuota1": 0, "fch_cancelacion_cuota1": "2026-01-20" }, 
-    "15539": { "imp_saldo_matricula": 0, "imp_saldo_cuota1": 0, "fch_cancelacion_cuota1": "2026-02-20" }, 
-    "15633": { "imp_saldo_matricula": 0, "imp_saldo_cuota1": 0, "fch_cancelacion_cuota1": "2026-02-20" }, 
-    "15332": { "imp_tc": 3.3659 }, 
+    "15369": { "imp_saldo_matricula": 0, "imp_saldo_cuota1": 0, "fch_cancelacion_cuota1": "2026-01-20" },
+    "15456": { "imp_saldo_matricula": 0, "imp_saldo_cuota1": 0, "fch_cancelacion_cuota1": "2026-01-20" },
+    "15539": { "imp_saldo_matricula": 0, "imp_saldo_cuota1": 0, "fch_cancelacion_cuota1": "2026-02-20" },
+    "15633": { "imp_saldo_matricula": 0, "imp_saldo_cuota1": 0, "fch_cancelacion_cuota1": "2026-02-20" },
+    "15332": { "imp_tc": 3.3659 },
     "15333": { "imp_tc": 3.3659 },
     "15337": { "imp_tc": 3.3659 },
     "15338": { "imp_tc": 3.3659 }
@@ -92,8 +91,7 @@
     "15339": "NO"
   },
   "Actualizar_INV_NETA": {
-  "15668": 3499,
-  "15669": 3499
-}
-      
+    "15668": 3499,
+    "15669": 3499
+  }
 }
