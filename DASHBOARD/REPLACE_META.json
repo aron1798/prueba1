@@ -16,7 +16,7 @@
         "CERTIFI",
         "CERTIFICACIÓN",
         "CERTIFICACION FUNDAMENTOS DE CHILLER MODULAR INVERT- LG",
-        "PIURA - CERTIFICACIÓN MIDEA: TECNOLOGIA  INVERTER",
+        "PIURA - CERTIFICACIÓN MIDEA: TECNOLOGIA INVERTER",
         "AREQUIPA - CERTIFICACIÓN MIDEA - TECNOLOGÍA INVERTER",
         "CERTIFICACIÓN: OPERACIÓN Y MANTENIMIENTO DE REFRIGERADORES MIDEA",
         "TRUJILLO - CERTIFICACIÓN MIDEA: TECNOLOGÍA INVERTER",
@@ -69,7 +69,7 @@
         "MANTENIMIENTO EN REFRIGERACIÓN",
         "TALLER - TECNICO ESPECIALISTA",
         "MANTENIMIENTO EN AIRE",
-        "TALLER DE REFRIGERACIÓN DOM",
+        "TALLER de REFRIGERACIÓN DOM",
         "TALLER VIVENCIAL EN AIRE ACONDICIONADO"
       ],
       "valor": 0
@@ -126,5 +126,23 @@
       ],
       "valor": 22
     }
+  },
+  "clasificacion_sedes": {
+    "AREQUIPA": {
+      "patrones": [
+        "AREQUIPA"
+      ]
+    },
+    "PIURA": {
+      "patrones": [
+        "PIURA"
+      ]
+    },
+    "TRUJILLO": {
+      "patrones": [
+        "TRUJILLO"
+      ]
+    },
+    "DEFAULT": "LIMA"
   }
 }
