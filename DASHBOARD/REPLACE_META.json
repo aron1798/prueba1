@@ -156,29 +156,15 @@
         "SEMINARIOS": {
           "label": "SEMINARIOS",
           "patrones": [
-            "SEMINARIO",
-            "AMONIACO",
-            "VRF",
-            "VOLUMEN VARIABLE",
-            "DISEÑO",
-            "DIPLOMADO",
-            "DUCTOS",
-            "CAD",
-            "AREQUIPA - SEMINARIO INSTALACIÓN",
-            "CO2",
-            "SEM:"
+            
+            "AREQUIPA - SEMINARIO INSTALACIÓN"
           ]
         },
         "OTROS": {
           "label": "OTROS",
           "patrones": [
-            "GESTION",
-            "MASTERCLASS",
-            "CERTIFICACION",
-            "CERTIFICACIÓN",
-            "CERTIFI",
-            "TALLER",
-            "CURSO A MEDIDA"
+            "Null"
+            
           ]
         }
       }
@@ -204,29 +190,15 @@
         "SEMINARIOS": {
           "label": "SEMINARIOS",
           "patrones": [
-            "SEMINARIO",
-            "AMONIACO",
-            "VRF",
-            "VOLUMEN VARIABLE",
-            "DISEÑO",
-            "DIPLOMADO",
-            "DUCTOS",
-            "CAD",
-            "TRUJILLO - SEMINARIO INSTALACIÓN",
-            "CO2",
-            "SEM:"
+            "TRUJILLO - SEMINARIO INSTALACIÓN"
+            
           ]
         },
         "OTROS": {
           "label": "OTROS",
           "patrones": [
-            "GESTION",
-            "MASTERCLASS",
-            "CERTIFICACION",
-            "CERTIFICACIÓN",
-            "CERTIFI",
-            "TALLER",
-            "CURSO A MEDIDA"
+            "Null"
+            
           ]
         }
       }
@@ -251,29 +223,13 @@
         "SEMINARIOS": {
           "label": "SEMINARIOS",
           "patrones": [
-            "SEMINARIO",
-            "AMONIACO",
-            "VRF",
-            "VOLUMEN VARIABLE",
-            "DISEÑO",
-            "DIPLOMADO",
-            "DUCTOS",
-            "CAD",
-            "PIURA - SEMINARIO INSTALACIÓN",
-            "CO2",
-            "SEM:"
+            "PIURA - SEMINARIO INSTALACIÓN"
           ]
         },
         "OTROS": {
           "label": "OTROS",
           "patrones": [
-            "GESTION",
-            "MASTERCLASS",
-            "CERTIFICACION",
-            "CERTIFICACIÓN",
-            "CERTIFI",
-            "TALLER",
-            "CURSO A MEDIDA"
+            "Null"
           ]
         }
       }
