@@ -5,7 +5,7 @@
   "clasificacion_programas": {
     "GESTION": {
       "patrones": [
-        "GESTIÓN DE VENTA",  
+        "GESTIÓN DE VENTA",
         "GESTION DE VENTA",
         "GESTION DE EMPRESAS"
       ],
@@ -46,7 +46,7 @@
     "SEMINARIOS": {
       "patrones": [
         "AMONIACO",
-        "VOLUMEN VARIABLE", 
+        "VOLUMEN VARIABLE",
         "VRV/VRF",
         "CO2",
         "CERTIF",
@@ -130,5 +130,210 @@
   "clasificacion_default": {
     "categoria": "SEMINARIOS",
     "valor": 15
+  },
+  "filtros_sede_programa": {
+    "default": {
+      "sede": "LIMA",
+      "programa": "OTROS"
+    },
+    "LIMA": {
+      "label": "LIMA",
+      "programas": {
+        "TEAC": {
+          "label": "TEAC",
+          "patrones": [
+            "TEAC",
+            "TECNICO ESPECIALISTA EN AIRE ACONDICIONADO",
+            "ACONDICIONADO",
+            "ESPECIALISTA EN AA",
+            "VIRTUAL TECNICO ESPECIALISTA EN AIRE",
+            "VIRTUAL TECNICO ESPECIALISTA EN AIRE ACONDICIONADO",
+            "MANTENIMIENTO EN AIRE ACONDICIONADO"
+          ]
+        },
+        "TERC": {
+          "label": "TERC",
+          "patrones": [
+            "TERC",
+            "TECNICO ESPECIALISTA EN REFRIGERACION COMERCIAL",
+            "REFRIGERACION COMERCIAL",
+            "REFRIGERACIÓN COMERCIAL",
+            "REFRIGERACION DOMÉSTICA",
+            "DOMESTICA",
+            "MANTENIMIENTO EN REFRIGERACIÓN COMERCIAL"
+          ]
+        },
+        "SEMINARIOS": {
+          "label": "SEMINARIOS",
+          "patrones": [
+            "SEMINARIO",
+            "AMONIACO",
+            "VRV/VRF",
+            "VOLUMEN VARIABLE",
+            "DISEÑO",
+            "DIPLOMADO",
+            "DUCTOS",
+            "CAD",
+            "CO2",
+            "SEM:"
+          ]
+        },
+        "OTROS": {
+          "label": "OTROS",
+          "patrones": [
+            "GESTION DE VENTA",
+            "GESTIÓN DE VENTA",
+            "GESTION DE EMPRESAS",
+            "MASTERCLASS",
+            "CERTIFICACION",
+            "CERTIFICACIÓN",
+            "CERTIFI",
+            "CONTINUIDAD",
+            "CARRERA",
+            "TALLER",
+            "CURSO A MEDIDA"
+          ]
+        }
+      }
+    },
+    "AREQUIPA": {
+      "label": "AREQUIPA",
+      "programas": {
+        "TEAC": {
+          "label": "TEAC",
+          "patrones": [
+            "AREQUIPA - TECNICO ESPECIALISTA EN AIRE ACONDICIONADO",
+            "AREQUIPA - TEAC"
+          ]
+        },
+        "TERC": {
+          "label": "TERC",
+          "patrones": [
+            "AREQUIPA - TECNICO ESPECIALISTA EN REFRIGERACION DOMÉSTICA Y COMERCIAL",
+            "AREQUIPA - TERC"
+          ]
+        },
+        "SEMINARIOS": {
+          "label": "SEMINARIOS",
+          "patrones": [
+            "SEMINARIO",
+            "AMONIACO",
+            "VRV/VRF",
+            "VOLUMEN VARIABLE",
+            "DISEÑO",
+            "DIPLOMADO",
+            "DUCTOS",
+            "CAD",
+            "CO2",
+            "SEM:"
+          ]
+        },
+        "OTROS": {
+          "label": "OTROS",
+          "patrones": [
+            "GESTION",
+            "MASTERCLASS",
+            "CERTIFICACION",
+            "CERTIFICACIÓN",
+            "CERTIFI",
+            "TALLER",
+            "CURSO A MEDIDA"
+          ]
+        }
+      }
+    },
+    "TRUJILLO": {
+      "label": "TRUJILLO",
+      "programas": {
+        "TEAC": {
+          "label": "TEAC",
+          "patrones": [
+            "TRUJILLO - TECNICO ESPECIALISTA EN AIRE ACONDICIONADO",
+            "TRUJILLO - VIRTUAL TECNICO ESPECIALISTA EN AIRE ACONDICIONADO",
+            "TRUJILLO - TEAC"
+          ]
+        },
+        "TERC": {
+          "label": "TERC",
+          "patrones": [
+            "TRUJILLO - TECNICO ESPECIALISTA EN REFRIGERACION DOMÉSTICA Y COMERCIAL",
+            "TRUJILLO - TERC"
+          ]
+        },
+        "SEMINARIOS": {
+          "label": "SEMINARIOS",
+          "patrones": [
+            "SEMINARIO",
+            "AMONIACO",
+            "VRV/VRF",
+            "VOLUMEN VARIABLE",
+            "DISEÑO",
+            "DIPLOMADO",
+            "DUCTOS",
+            "CAD",
+            "CO2",
+            "SEM:"
+          ]
+        },
+        "OTROS": {
+          "label": "OTROS",
+          "patrones": [
+            "GESTION",
+            "MASTERCLASS",
+            "CERTIFICACION",
+            "CERTIFICACIÓN",
+            "CERTIFI",
+            "TALLER",
+            "CURSO A MEDIDA"
+          ]
+        }
+      }
+    },
+    "PIURA": {
+      "label": "PIURA",
+      "programas": {
+        "TEAC": {
+          "label": "TEAC",
+          "patrones": [
+            "PIURA - TECNICO ESPECIALISTA EN AIRE ACONDICIONADO",
+            "PIURA - TEAC"
+          ]
+        },
+        "TERC": {
+          "label": "TERC",
+          "patrones": [
+            "PIURA - TECNICO ESPECIALISTA EN REFRIGERACION DOMÉSTICA Y COMERCIAL",
+            "PIURA - TERC"
+          ]
+        },
+        "SEMINARIOS": {
+          "label": "SEMINARIOS",
+          "patrones": [
+            "SEMINARIO",
+            "AMONIACO",
+            "VRV/VRF",
+            "VOLUMEN VARIABLE",
+            "DISEÑO",
+            "DIPLOMADO",
+            "DUCTOS",
+            "CAD",
+            "CO2",
+            "SEM:"
+          ]
+        },
+        "OTROS": {
+          "label": "OTROS",
+          "patrones": [
+            "GESTION",
+            "MASTERCLASS",
+            "CERTIFICACION",
+            "CERTIFICACIÓN",
+            "CERTIFI",
+            "TALLER",
+            "CURSO A MEDIDA"
+          ]
+        }
+      }
+    }
   }
 }
