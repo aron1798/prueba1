@@ -136,66 +136,6 @@
       "sede": "LIMA",
       "programa": "OTROS"
     },
-    "LIMA": {
-      "label": "LIMA",
-      "programas": {
-        "TEAC": {
-          "label": "TEAC",
-          "patrones": [
-            "TEAC",
-            "TECNICO ESPECIALISTA EN AIRE ACONDICIONADO",
-            "ACONDICIONADO",
-            "ESPECIALISTA EN AA",
-            "VIRTUAL TECNICO ESPECIALISTA EN AIRE",
-            "VIRTUAL TECNICO ESPECIALISTA EN AIRE ACONDICIONADO",
-            "MANTENIMIENTO EN AIRE ACONDICIONADO"
-          ]
-        },
-        "TERC": {
-          "label": "TERC",
-          "patrones": [
-            "TERC",
-            "TECNICO ESPECIALISTA EN REFRIGERACION COMERCIAL",
-            "REFRIGERACION COMERCIAL",
-            "REFRIGERACIÓN COMERCIAL",
-            "REFRIGERACION DOMÉSTICA",
-            "DOMESTICA",
-            "MANTENIMIENTO EN REFRIGERACIÓN COMERCIAL"
-          ]
-        },
-        "SEMINARIOS": {
-          "label": "SEMINARIOS",
-          "patrones": [
-            "SEMINARIO",
-            "AMONIACO",
-            "VRV/VRF",
-            "VOLUMEN VARIABLE",
-            "DISEÑO",
-            "DIPLOMADO",
-            "DUCTOS",
-            "CAD",
-            "CO2",
-            "SEM:"
-          ]
-        },
-        "OTROS": {
-          "label": "OTROS",
-          "patrones": [
-            "GESTION DE VENTA",
-            "GESTIÓN DE VENTA",
-            "GESTION DE EMPRESAS",
-            "MASTERCLASS",
-            "CERTIFICACION",
-            "CERTIFICACIÓN",
-            "CERTIFI",
-            "CONTINUIDAD",
-            "CARRERA",
-            "TALLER",
-            "CURSO A MEDIDA"
-          ]
-        }
-      }
-    },
     "AREQUIPA": {
       "label": "AREQUIPA",
       "programas": {
@@ -329,6 +269,66 @@
             "CERTIFICACION",
             "CERTIFICACIÓN",
             "CERTIFI",
+            "TALLER",
+            "CURSO A MEDIDA"
+          ]
+        }
+      }
+    },
+    "LIMA": {
+      "label": "LIMA",
+      "programas": {
+        "TEAC": {
+          "label": "TEAC",
+          "patrones": [
+            "TEAC",
+            "TECNICO ESPECIALISTA EN AIRE ACONDICIONADO",
+            "ACONDICIONADO",
+            "ESPECIALISTA EN AA",
+            "VIRTUAL TECNICO ESPECIALISTA EN AIRE",
+            "VIRTUAL TECNICO ESPECIALISTA EN AIRE ACONDICIONADO",
+            "MANTENIMIENTO EN AIRE ACONDICIONADO"
+          ]
+        },
+        "TERC": {
+          "label": "TERC",
+          "patrones": [
+            "TERC",
+            "TECNICO ESPECIALISTA EN REFRIGERACION COMERCIAL",
+            "REFRIGERACION COMERCIAL",
+            "REFRIGERACIÓN COMERCIAL",
+            "REFRIGERACION DOMÉSTICA",
+            "DOMESTICA",
+            "MANTENIMIENTO EN REFRIGERACIÓN COMERCIAL"
+          ]
+        },
+        "SEMINARIOS": {
+          "label": "SEMINARIOS",
+          "patrones": [
+            "SEMINARIO",
+            "AMONIACO",
+            "VRV/VRF",
+            "VOLUMEN VARIABLE",
+            "DISEÑO",
+            "DIPLOMADO",
+            "DUCTOS",
+            "CAD",
+            "CO2",
+            "SEM:"
+          ]
+        },
+        "OTROS": {
+          "label": "OTROS",
+          "patrones": [
+            "GESTION DE VENTA",
+            "GESTIÓN DE VENTA",
+            "GESTION DE EMPRESAS",
+            "MASTERCLASS",
+            "CERTIFICACION",
+            "CERTIFICACIÓN",
+            "CERTIFI",
+            "CONTINUIDAD",
+            "CARRERA",
             "TALLER",
             "CURSO A MEDIDA"
           ]
