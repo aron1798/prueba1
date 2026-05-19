@@ -43,7 +43,10 @@
     "1163": { "flg_activo": "NO" },
     "1154": { "flg_activo": "NO" },
     "1165": { "flg_activo": "NO" },
-    "1119": { "flg_activo": "NO" }
+    "1119": { "flg_activo": "NO" },
+    "1156": { "flg_activo": "NO" },
+    "1171": { "flg_activo": "NO" },
+    "1166": { "flg_activo": "NO" }
   },
   "correcciones_matriculas": {
     "15369": { "imp_saldo_matricula": 0, "imp_saldo_cuota1": 0, "fch_cancelacion_cuota1": "2026-01-20" },
