@@ -68,6 +68,18 @@
     {
       "buscar": "SEMINARIO INSTALACIÓN DE SISTEMAS DE A/A DE VOLUMEN VARIABLE VRV/VRF",
       "reemplazar": "SEMINARIO VOLUMEN VARIABLE VRV/VRF"
+    },
+    {
+      "buscar": "SEMINARIO VIRTUAL METRADO , COSTEO Y PRESUPUESTOS DE HVAC (AA)",
+      "reemplazar": "METRADO Y COSTEO"
+    },
+    {
+      "buscar": "GESTIÓN DE VENTA DE EQUIPOS DE AIRE ACONDICIONADO Y EQUIPOS DE REFRIGERACIÓN",
+      "reemplazar": "GESTION DE VENTA"
+    },
+    {
+      "buscar": "VIRTUAL SEMINARIO DISEÑO DE CAMARAS DE REFRIGERACION CON SISTEMAS CON FREON",
+      "reemplazar": "DISEÑO DE CAMARAS"
     }
   ]
 }
