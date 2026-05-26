@@ -1,6 +1,6 @@
 {
   "config_general": {
-    "auto_update_minutos": 2
+    "auto_update_minutos": 5
   },
   "reemplazos_programas": {
     "GESTIÓN DE VENTA DE EQUIPOS DE AIRE ACONDICIONADO Y EQUIPOS DE REFRIGERACIÓN": "GESTIÓN DE VENTA",
