@@ -1,0 +1,46 @@
+SELECT 
+    -- Cronograma de Matrícula (T1)
+    T1.cod_localidad,
+    T1.num_matricula,
+    T1.num_refinanciamiento,
+    T1.num_cuota,
+    T1.fch_vencimiento,
+    T1.fch_cancelacion,
+    T1.cod_estado,
+    T1.imp_total,
+    T1.imp_total_pagado,
+    T1.imp_saldo,
+    T1.imp_dscto,
+
+    -- Matrícula y Programa
+    M.fch_matricula,
+    M.cod_estado AS estado_matricula,
+    P.dsc_programa,
+    RP.dsc_det_programa,
+    RP.fch_inicio,
+    M.cod_moneda,
+    C.dsc_cuota,
+    M.imp_tc
+FROM 
+    [BDUS_CK000040_0001].[dbo].[sgede_cronograma_matricula] T1
+INNER JOIN 
+    sgeca_matricula M 
+    ON T1.cod_localidad = M.cod_localidad 
+    AND T1.num_matricula = M.num_matricula
+LEFT JOIN 
+    sgeca_programa P 
+    ON M.cod_programa = P.cod_programa
+LEFT JOIN 
+    sgede_RP_programa RP 
+    ON M.cod_programa = RP.cod_programa 
+    AND M.cod_periodo = RP.cod_detalle 
+    AND M.num_indice = RP.num_indice
+LEFT JOIN 
+    vtama_cuota C 
+    ON M.cod_cuota = C.cod_cuota
+WHERE 
+    YEAR(RP.fch_inicio) = ?
+    AND MONTH(RP.fch_inicio) = ?
+    AND T1.fch_vencimiento > '2020-01-01 00:00:00:000'
+ORDER BY 
+    T1.fch_vencimiento ASC;

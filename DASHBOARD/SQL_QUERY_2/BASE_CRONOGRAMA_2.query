@@ -1,0 +1,59 @@
+SELECT 
+    -- Cronograma de Matrícula (T1)
+    T1.num_matricula,
+    T1.num_cuota,
+    T1.fch_vencimiento,
+    T1.fch_cancelacion,
+    T1.cod_estado,
+    T1.imp_total,
+    T1.imp_total_pagado,
+    T1.imp_saldo,
+    T1.imp_dscto,
+
+    -- Matrícula y Programa
+    M.fch_matricula,           
+    M.fch_retiro,
+    M.cod_estado AS estado_matricula, 
+    P.dsc_programa,            
+    RP.dsc_det_programa,       
+    M.num_indice,              
+    RP.fch_inicio,             
+    M.cod_moneda,                  
+    M.imp_tc,
+
+    -- Sectorista
+    (ISNULL(EMP.dsc_apellido_paterno, '') + ' ' + 
+     ISNULL(EMP.dsc_apellido_materno, '') + ', ' + 
+     ISNULL(EMP.dsc_nombres, '')) AS dsc_sectorista,
+
+    RP.cod_frecuencia
+
+FROM 
+    [BDUS_CK000040_0001].[dbo].[sgede_cronograma_matricula] T1 
+INNER JOIN 
+    sgeca_matricula M 
+    ON T1.cod_localidad = M.cod_localidad 
+    AND T1.num_matricula = M.num_matricula
+LEFT JOIN 
+    sgeca_programa P 
+    ON M.cod_programa = P.cod_programa
+LEFT JOIN 
+    sgede_RP_programa RP 
+    ON M.cod_programa = RP.cod_programa 
+    AND M.cod_periodo = RP.cod_detalle 
+    AND M.num_indice = RP.num_indice
+LEFT JOIN 
+    vtama_cuota C 
+    ON M.cod_cuota = C.cod_cuota
+LEFT JOIN 
+    [BDUS_CK000040_0001].[dbo].[sgede_RP_programa_sectorista] SEC_ASIG
+    ON M.cod_programa = SEC_ASIG.cod_programa
+    AND M.cod_periodo = SEC_ASIG.cod_detalle
+    AND M.num_indice = SEC_ASIG.num_indice
+LEFT JOIN 
+    [BDUS_CK000040_0001].[dbo].[rhuma_trabajador] EMP
+    ON SEC_ASIG.cod_trabajador = EMP.cod_trabajador
+WHERE 
+    YEAR(RP.fch_inicio) IN (2025, 2026)
+ORDER BY 
+    T1.fch_vencimiento ASC;

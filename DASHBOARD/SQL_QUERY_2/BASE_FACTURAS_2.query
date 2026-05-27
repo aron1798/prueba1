@@ -1,0 +1,51 @@
+SELECT
+comp.[num_correlativo],
+comp.[fch_emision],
+comp.[fch_cancelacion],
+comp.[cod_estado],
+comp.[cod_moneda],
+comp.[imp_total],
+comp.[imp_saldo],
+comp.[imp_tc],
+comp.[flg_nc],
+
+-- Centro de Responsabilidad
+cr_prog.dsc_centroresp AS dsc_cr,
+
+-- Programa académico
+rp.dsc_det_programa,
+rp.fch_inicio,
+prog.dsc_programa,
+mat.num_indice, 
+mat.cod_estado AS estado_matricula,
+mat.fch_retiro,
+
+-- Cuotas y matrícula
+cxc.num_matricula,
+cxc.num_cuota,
+COALESCE(cxc.imp_emitido, comp.imp_total) as imp_emitido,
+
+-- Cuota
+cron.fch_vencimiento as fch_vencimiento_cuota
+FROM [BDUS_CK000040_0001].[dbo].[vtaca_comprobante] comp
+
+LEFT JOIN sgevi_cuotas_x_comprobante cxc ON comp.cod_localidad = cxc.cod_localidad
+AND comp.num_correlativo = cxc.num_correlativo
+
+LEFT JOIN sgeca_matricula mat ON cxc.cod_localidad_c = mat.cod_localidad
+AND cxc.num_matricula = mat.num_matricula
+
+LEFT JOIN sgede_RP_programa rp ON mat.cod_programa = rp.cod_programa
+AND mat.cod_periodo = rp.cod_detalle
+AND mat.num_indice = rp.num_indice
+
+LEFT JOIN sgeca_programa prog ON mat.cod_programa = prog.cod_programa
+LEFT JOIN rhuma_centroresponsabilidad cr_prog ON prog.cod_centroresp = cr_prog.cod_centroresp
+
+LEFT JOIN sgede_cronograma_matricula cron ON cxc.cod_localidad_c = cron.cod_localidad
+AND cxc.num_matricula = cron.num_matricula
+AND cxc.num_refinanciamiento = cron.num_refinanciamiento
+AND cxc.num_cuota = cron.num_cuota
+
+WHERE comp.fch_emision BETWEEN '01-01-2024 00:00:00.000' AND '31-12-2028 00:00:00.000'
+ORDER BY comp.fch_emision ASC;

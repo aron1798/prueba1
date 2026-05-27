@@ -1,0 +1,38 @@
+SELECT 
+    rp.[num_indice],
+    rp.[dsc_det_programa],
+    rp.[flg_activo],
+    rp.[fch_inicio],
+    rp.[cod_frecuencia],
+    rp.[cod_estado],
+    p.[dsc_programa],
+    (
+        SELECT COUNT(*) 
+        FROM sgeca_matricula m
+        WHERE m.cod_periodo = rp.cod_detalle
+        AND m.num_indice = rp.num_indice
+        AND m.cod_estado NOT IN ('ANU', 'SUS')
+    ) AS 'Inscritos_Totales',
+    (
+        SELECT COUNT(*) 
+        FROM sgeca_matricula m
+        WHERE m.cod_periodo = rp.cod_detalle
+        AND m.num_indice = rp.num_indice
+        AND m.cod_estado = 'RET'
+    ) AS 'Inscritos_Retirados',
+    (
+        SELECT COUNT(*) 
+        FROM sgeca_matricula m
+        WHERE m.cod_periodo = rp.cod_detalle
+        AND m.num_indice = rp.num_indice
+        AND m.cod_estado NOT IN ('ANU', 'RET', 'SUS')
+    ) AS 'Inscritos_Activos'
+FROM 
+    [BDUS_CK000040_0001].[dbo].[sgede_RP_programa] rp
+INNER JOIN [BDUS_CK000040_0001].[dbo].[sgeca_programa] p 
+    ON rp.cod_programa = p.cod_programa
+WHERE 
+    YEAR(rp.fch_inicio) = ?
+    AND MONTH(rp.fch_inicio) = ?
+ORDER BY 
+    rp.fch_inicio ASC
