@@ -167,6 +167,8 @@
     },
     "OTROS": {
       "patrones": [
+        "GESTIÓN DE VENTA",
+        "GESTION DE VENTA",
         "VIRTUAL TECNICO ESPECIALISTA",
         "CURSO A MEDIDA",
         "INSTALACION EN REFRIGERACION",
@@ -175,7 +177,7 @@
         "MANTENIMIENTO EN AIRE",
         "TALLER DE REFRIGERACIÓN DOM",
         "TALLER VIVENCIAL EN AIRE ACONDICIONADO"
-      ]
+      ]]
     },
     "TEAC": {
       "patrones": [
