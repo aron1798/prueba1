@@ -66,13 +66,15 @@
     "15340": "SI",
     "15141": "NO",
     "15598": "NO",
-    "15597": "NO"
+    "15597": "NO",
+    "16188": "NO"
   },
   "correcciones_descuento": {
     "15141": "SI",
     "15633": "SI",
     "15598": "SI",
-    "15597": "SI"
+    "15597": "SI",
+    "16188": "SI"
   },
   "lista_pendientes": [
     "AGUILAR U. JUAN CARLOS",
