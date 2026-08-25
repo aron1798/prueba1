@@ -133,7 +133,8 @@
   "clasificacion_sedes": {
     "AREQUIPA": {
       "patrones": [
-        "AREQUIPA"
+        "AREQUIPA",
+        "AQP"
       ]
     },
     "PIURA": {
@@ -180,6 +181,7 @@
         "TALLER - TECNICO ESPECIALISTA",
         "MANTENIMIENTO EN AIRE",
         "TALLER DE REFRIGERACIÓN DOM",
+        "CARRERA TECNICA",
         "TALLER VIVENCIAL EN AIRE ACONDICIONADO"
       ]
     },
