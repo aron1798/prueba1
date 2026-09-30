@@ -1,9 +1,13 @@
 SELECT
 comp.[num_correlativo],
+comp.[num_comprobante],
 comp.[fch_emision],
 comp.[fch_cancelacion],
 comp.[cod_estado],
 comp.[cod_moneda],
+comp.[dsc_deudor],
+comp.[imp_subtotal],
+comp.[imp_igv],
 comp.[imp_total],
 comp.[imp_saldo],
 comp.[imp_tc],
@@ -47,5 +51,5 @@ AND cxc.num_matricula = cron.num_matricula
 AND cxc.num_refinanciamiento = cron.num_refinanciamiento
 AND cxc.num_cuota = cron.num_cuota
 
-WHERE comp.fch_emision BETWEEN '01-01-2024 00:00:00.000' AND '31-12-2028 00:00:00.000'
+WHERE comp.fch_emision >= '01-01-2024 00:00:00.000'
 ORDER BY comp.fch_emision ASC;
