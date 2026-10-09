@@ -1,0 +1,14 @@
+SELECT
+nc.[num_correlativo],
+nc.[num_documento],
+nc.[fch_emision],
+nc.[cod_estado],
+nc.[cod_moneda],
+nc.[imp_subtotal],
+nc.[imp_tc],
+nc.[dsc_contrato],
+nc.[num_serie_ref] + nc.[num_comprobante_ref] AS num_comprobante_BF
+FROM [BDUS_CK000040_0001].[dbo].[vtaca_nota_credito] nc
+WHERE nc.fch_emision >= '01-01-2024 00:00:00.000'
+AND nc.cod_estado <> 'ANU'
+ORDER BY nc.fch_emision ASC;
