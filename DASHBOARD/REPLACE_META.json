@@ -155,6 +155,7 @@
         "AMONIACO",
         "VOLUMEN VARIABLE",
         "VRV/VRF",
+        "REFRIGERACIÓN CON AMONÍACO",
         "CO2",
         "CERTIF",
         "SEM:",
@@ -167,7 +168,8 @@
         "CAD",
         "VRF",
         "SUPERVISION DE OBRAS",
-        "CHILLERS"
+        "CHILLERS",
+        "PROGRAMACIÓN DE CONTROLADORES"
       ]
     },
     "OTROS": {
